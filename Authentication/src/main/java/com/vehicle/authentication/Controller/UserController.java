@@ -18,6 +18,10 @@ public class UserController {
     public List<UserModel> getAllUsers() {
         return userService.allUsers();
     }
+    @GetMapping("/{id}")
+    public UserModel getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
 
     @PostMapping()
     public UserModel registerUser(@RequestBody UserModel userModel) {

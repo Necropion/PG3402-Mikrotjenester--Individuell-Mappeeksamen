@@ -1,7 +1,6 @@
-/Frontend/.parcel-cache/
-/Frontend/dist/
-/Frontend/node_modules/
-/store/target/
-/.idea/
+/Client/.parcel-cache/
+/Client/dist/
+/Client/node_modules/
+/target/
+.idea/
 .DS_Store
-.idea
