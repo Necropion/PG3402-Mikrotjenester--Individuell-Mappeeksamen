@@ -1,0 +1,7 @@
+/Frontend/.parcel-cache/
+/Frontend/dist/
+/Frontend/node_modules/
+/store/target/
+/.idea/
+.DS_Store
+.idea
