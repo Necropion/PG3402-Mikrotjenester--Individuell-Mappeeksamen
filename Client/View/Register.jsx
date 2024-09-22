@@ -70,9 +70,9 @@ const Register = () => {
                            onChange={(e) => {
                                setEmail(e.target.value)
                            }}/>
-                    <button id="registerBtn" className={'ml-[42.5%] mr-[42.5%] w-[15%] h-[50px] bg-cyan-300 rounded-xl'} onClick={handleClick}>Sign Up</button>
+                    <button id="registerBtn" className={'ml-[42.5%] mr-[42.5%] w-[15%] h-[50px] bg-cyan-600 rounded-xl hover:bg-green-400'} onClick={handleClick}>Sign Up</button>
                     <p className={'text-xl mr-[5px] mt-[10px]'}>Already have an account?</p>
-                    <button id="loginBtn" className={'w-[15%] h-[50px] bg-cyan-300 rounded-xl'}
+                    <button id="loginBtn" className={'w-[15%] h-[50px] bg-cyan-600 rounded-xl hover:bg-green-400'}
                             onClick={handleClick}>Login
                     </button>
                 </form>

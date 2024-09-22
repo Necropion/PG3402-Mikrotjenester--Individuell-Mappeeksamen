@@ -1,5 +1,6 @@
 package com.vehicle.authentication.Service;
 
+import com.vehicle.authentication.Model.Authentication;
 import com.vehicle.authentication.Model.UserModel;
 import com.vehicle.authentication.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public UserModel getUserById(Long userId) {
-        return userRepository.findById(userId).orElse(null);
+    public Authentication getUserById(String username, String password) {
+        Authentication auth = new Authentication();
+        if(userRepository.findByUsernameAndPassword(username, password) != null) {
+            auth.setAuthentication(true);
+            return auth;
+        }
+        return auth;
     }
 
     public void addUser(UserModel userModel) {

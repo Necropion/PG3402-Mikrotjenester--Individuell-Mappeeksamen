@@ -1,15 +1,15 @@
 import Header from "./Components/Header";
 
-const About = () => {
+const Home = () => {
 
     return(
         <>
             <Header />
             <main className={'text-center text-8xl mt-[30vh]'}>
-                Coming Soon!
+                Welcome!
             </main>
         </>
     )
 }
 
-export default About;
+export default Home;

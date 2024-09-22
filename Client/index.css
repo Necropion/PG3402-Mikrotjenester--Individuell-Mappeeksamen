@@ -4,5 +4,5 @@
 @tailwind utilities;
 body {
     @apply font-roboto
-    bg-cyan-300
+    bg-cyan-600
 }

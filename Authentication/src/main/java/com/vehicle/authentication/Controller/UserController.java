@@ -1,5 +1,6 @@
 package com.vehicle.authentication.Controller;
 
+import com.vehicle.authentication.Model.Authentication;
 import com.vehicle.authentication.Model.UserModel;
 import com.vehicle.authentication.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class UserController {
     public List<UserModel> getAllUsers() {
         return userService.allUsers();
     }
-    @GetMapping("/{id}")
-    public UserModel getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    @GetMapping("/auth")
+    public Authentication getUserById(@RequestParam String username, @RequestParam String password) {
+        return userService.getUserById(username, password);
     }
 
     @PostMapping()
