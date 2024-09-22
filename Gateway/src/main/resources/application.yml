@@ -1,0 +1,39 @@
+server:
+  port: 8000
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+spring:
+  application:
+    name: gateway
+
+  config:
+    import: "optional:consul:"
+
+  cloud:
+    gateway:
+      routes:
+        # Authentication service route
+        - id: authentication
+          uri: "http://localhost:8080"
+          predicates:
+            - Path=/api/user, /api/user/**
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:1234"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "OPTIONS"
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET, POST
