@@ -16,10 +16,10 @@ const Header = () => {
             </div>
             <h2 className={'text-4xl text-center w-[33vw]'}>Vehicle Shop</h2>
             <div className={'w-[31vw] mr-[2vw] flex flex-wrap justify-end'}>
-                <Link className={'border-b-2 border-cyan-600 hover:border-black ml-5'} to={"/"}>Login</Link>
-                <Link className={'border-b-2 border-cyan-600 hover:border-black ml-5'} to={"/register"}>Register</Link>
-                <Link className={'border-b-2 border-cyan-600 hover:border-black ml-5'} to={"/home"}>Home</Link>
-                <Link className={'border-b-2 border-cyan-600 hover:border-black ml-5'} to={"/about"}>About Us</Link>
+                <Link className={'hover:border-b-2 hover:border-cyan-600 ml-5 mt-4 h-[35]'} to={"/"}>Login</Link>
+                <Link className={'hover:border-b-2 hover:border-cyan-600 ml-5 mt-4 h-[35]'} to={"/register"}>Register</Link>
+                <Link className={'hover:border-b-2 hover:border-cyan-600 ml-5 mt-4 h-[35]'} to={"/home"}>Home</Link>
+                <Link className={'hover:border-b-2 hover:border-cyan-600 ml-5 mt-4 h-[35]'} to={"/about"}>About Us</Link>
             </div>
         </header>
     )

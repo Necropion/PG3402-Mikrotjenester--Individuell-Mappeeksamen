@@ -20,6 +20,11 @@ spring:
           uri: "http://localhost:8080"
           predicates:
             - Path=/api/user, /api/user/**, /api/user/auth, /api/user/auth/**
+        # Dealership service route
+        - id: dealership
+          uri: "http://localhost:8081"
+          predicates:
+            - Path=/api/car, /api/car/**
       globalcors:
         cors-configurations:
           '[/**]':
