@@ -4,7 +4,13 @@ module.exports = {
     "./View/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        merriweather: ['Merriweather', 'serif'],
+        roboto: ['Roboto', 'sans-serif']
+      },
+    },
   },
   plugins: [],
 }
