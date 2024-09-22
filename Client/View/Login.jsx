@@ -1,12 +1,14 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import eyeOn from '../Images/eye-on.svg'
 import eyeOff from '../Images/eye-off.svg'
 import Header from "./Components/Header";
 import {useNavigate} from "react-router-dom";
+import { ApplicationContext } from "../Application";
 
 const Login = () => {
 
     const navigate = useNavigate()
+    const { setUser } = useContext(ApplicationContext)
 
     // User Variables
     const [username, setUsername] = useState("");
@@ -16,6 +18,21 @@ const Login = () => {
     const [statusMsg, setStatusMsg] = useState("Please sign in to proceed");
     const [visInput, setVisInput] = useState("password")
     const [visImg, setVisImg] = useState(eyeOn)
+
+
+    const fetchUser = async (userId) => {
+        try {
+            const getUser = await fetch('/api/user/' + userId)
+
+            if (getUser.ok) {
+                const user = await getUser.json();
+                setUser(user);
+            }
+        } catch (error) {
+            setStatusMsg("Error while fetching user data")
+            console.error("Error fetching user:", error);
+        }
+    }
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -33,6 +50,7 @@ const Login = () => {
         } else if(e.target.id === "loginBtn") {
             try {
                 const userAuth = await fetch(`/api/user/auth?username=${username}&password=${password}`)
+                console.log(`Fetch made to: /api/user/auth?username=${username}&password=${password}`)
 
                 if (userAuth.ok) {
                     const userFound = await userAuth.json();
@@ -40,6 +58,7 @@ const Login = () => {
                     console.log(userFound)
 
                     if (userFound.authentication === true) {
+                        await fetchUser(userFound.userId);
                         navigate("home")
                     }
 

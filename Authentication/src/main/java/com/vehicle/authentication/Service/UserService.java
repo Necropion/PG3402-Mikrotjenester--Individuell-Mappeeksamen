@@ -19,10 +19,20 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Authentication getUserById(String username, String password) {
+    public UserModel getOneUserById(Long id) {
+        Optional<UserModel> user = userRepository.findById(id);
+        if(user.isPresent()) {
+            return user.get();
+        }
+        return null;
+    }
+
+    public Authentication getUserByUsernameAndPassword(String username, String password) {
         Authentication auth = new Authentication();
-        if(userRepository.findByUsernameAndPassword(username, password) != null) {
+        UserModel user = userRepository.findByUsernameAndPassword(username, password);
+        if(user != null) {
             auth.setAuthentication(true);
+            auth.setUserId(user.getId());
             return auth;
         }
         return auth;

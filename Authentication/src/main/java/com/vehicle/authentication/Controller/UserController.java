@@ -19,9 +19,15 @@ public class UserController {
     public List<UserModel> getAllUsers() {
         return userService.allUsers();
     }
+
+    @GetMapping("/{id}")
+    public UserModel getUserById(@PathVariable Long id) {
+        return userService.getOneUserById(id);
+    }
+
     @GetMapping("/auth")
-    public Authentication getUserById(@RequestParam String username, @RequestParam String password) {
-        return userService.getUserById(username, password);
+    public Authentication authUser(@RequestParam String username, @RequestParam String password) {
+        return userService.getUserByUsernameAndPassword(username, password);
     }
 
     @PostMapping()

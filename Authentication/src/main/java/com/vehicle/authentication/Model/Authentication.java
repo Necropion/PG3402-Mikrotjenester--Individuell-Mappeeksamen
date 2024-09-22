@@ -9,4 +9,5 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class Authentication {
     private boolean authentication;
+    private Long userId;
 }
