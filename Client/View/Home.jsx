@@ -28,7 +28,7 @@ const Home = () => {
             <main className={'text-center text-8xl mt-[5vh] flex flex-wrap justify-center'}>
                 <div className={'bg-white rounded-xl w-[72vw] grid grid-cols-4'}>
                     {carList.map((car, index) => (
-                        <div className={'text-xl bg-black text-white ml-2 mt-2'}>{car.make} ({car.carYear})</div>
+                        <div className={'text-xl bg-black text-white ml-2 mt-2'}>{car.make}, {car.model}, {car.color} ({car.carYear})</div>
                     ))}
                 </div>
                 <div className={'bg-white rounded-xl ml-[1vw] w-[25vw]'}>

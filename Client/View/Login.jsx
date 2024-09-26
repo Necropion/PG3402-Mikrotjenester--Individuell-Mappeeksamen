@@ -90,12 +90,12 @@ const Login = () => {
                            placeholder="Password"
                            value={password}
                            onChange={(e) => {setPassword(e.target.value)}}/>
-                    <button id="visBtn" className={'ml-[1%] mr-[10%] w-[9%] h-[50px] bg-cyan-600 rounded-xl flex flex-wrap justify-center content-center hover:bg-green-400'} onClick={handleClick}>
+                    <button id="visBtn" className={'ml-[1%] mr-[10%] w-[9%] h-[50px] bg-cyan-600 rounded-lg flex flex-wrap justify-center content-center hover:bg-green-400'} onClick={handleClick}>
                         <img id="visImg" className={'w-[35px] h-[35px]'} src={visImg} onClick={handleClick} alt="eye-off"/>
                     </button>
-                    <button id="loginBtn" className={'ml-[42.5%] mr-[42.5%] w-[15%] h-[50px] bg-cyan-600 rounded-xl hover:bg-green-400'} onClick={handleClick}>Login</button>
+                    <button id="loginBtn" className={'ml-[42.5%] mr-[42.5%] w-[15%] h-[50px] bg-cyan-600 rounded-lg hover:bg-green-400'} onClick={handleClick}>Login</button>
                     <p className={'text-xl mr-[5px] mt-[10px]'}>No account?</p>
-                    <button id="registerBtn" className={'w-[15%] h-[50px] bg-cyan-600 rounded-xl hover:bg-green-400'} onClick={handleClick}>Sign Up</button>
+                    <button id="registerBtn" className={'w-[15%] h-[50px] bg-cyan-600 rounded-lg hover:bg-green-400'} onClick={handleClick}>Sign Up</button>
                 </form>
             </main>
         </>
