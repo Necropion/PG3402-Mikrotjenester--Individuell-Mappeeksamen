@@ -10,7 +10,7 @@ export const ApplicationContext = createContext();
 
 const Application = () => {
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(null)
 
     return(
         <ApplicationContext.Provider value={ { user, setUser } }>
