@@ -25,6 +25,11 @@ spring:
           uri: "http://localhost:8081"
           predicates:
             - Path=/api/car, /api/car/**
+        # Cart service route
+        - id: cart
+          uri: "http://localhost:8082"
+          predicates:
+            - Path=/api/cart, /api/cart/**, /api/item, /api/item/**
       globalcors:
         cors-configurations:
           '[/**]':

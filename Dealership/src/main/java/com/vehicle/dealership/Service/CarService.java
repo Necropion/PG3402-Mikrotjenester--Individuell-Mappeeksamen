@@ -17,6 +17,10 @@ public class CarService {
         return carRepository.findAll();
     }
 
+    public Car fetchCarByProductId(Long product_id) {
+        return carRepository.findByProductId(product_id);
+    }
+
     public Car addCar(Car car) {
         return carRepository.save(car);
     }

@@ -1,1 +1,1 @@
-INSERT INTO Cart(id, user_id) VALUES(1,2)
+INSERT INTO Cart(user_id) VALUES(2)

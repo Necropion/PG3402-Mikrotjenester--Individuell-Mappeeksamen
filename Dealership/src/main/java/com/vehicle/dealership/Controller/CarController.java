@@ -19,6 +19,11 @@ public class CarController {
         return carService.fetchAllCars();
     }
 
+    @GetMapping("/{product_id}")
+    public Car getCarByProductId(@PathVariable Long product_id) {
+        return carService.fetchCarByProductId(product_id);
+    }
+
     @PostMapping
     public Car addCar(@RequestBody Car car) {
         return carService.addCar(car);

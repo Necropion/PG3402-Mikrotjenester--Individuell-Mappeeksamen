@@ -19,8 +19,16 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemsRepository cartItemsRepository;
 
+    public Cart createCart(Cart cart) {
+        return cartRepository.save(cart);
+    }
+
     public List<CartItems> fetchCartItemsList() {
         return cartItemsRepository.findAll();
+    }
+
+    public List<CartItems> fetchAllCartItems(Long cart_id) {
+        return cartItemsRepository.findByCartId(cart_id);
     }
 
     public CartItems createCartItem(CartItems cartItem) {
