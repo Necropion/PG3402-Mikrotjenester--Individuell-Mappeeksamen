@@ -26,10 +26,8 @@ const Home = () => {
         const postCartItem = await fetch("/api/item",{
             method: "POST",
             body: JSON.stringify({
-                id: {
-                    cart_id: cart.id,
-                    product_id: e.target.dataset.productId
-                },
+                cartId: cart.id,
+                productId: e.target.dataset.productId,
                 quantity: 1
             }),
             headers: {
@@ -67,7 +65,7 @@ const Home = () => {
                             <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
                                 <div>{car.make} {car.model} ({car.carYear})</div>
                                 <div>{car.color}</div>
-                                <button data-product-id={car.product_id} id="buyBtn" className={'bg-amber-950 hover:bg-green-400 w-[10%] ml-[45%] mt-8 rounded-md'}
+                                <button data-product-id={car.productId} id="buyBtn" className={'bg-amber-950 hover:bg-green-400 w-[10%] ml-[45%] mt-8 rounded-md'}
                                         onClick={handleClick}
                                 >
                                     Buy</button>

@@ -6,18 +6,30 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
 
     const { user } = useContext(ApplicationContext);
 
-    const [itemList, setItemList] = useState([])
+    const [itemList, setItemList] = useState([]);
+    const [productList, setProductList] = useState([]);
 
     const fetchItems = async () => {
         const getCartItems = await fetch("/api/item/" + cart.id)
         const cartItemList = await getCartItems.json();
 
         if(getCartItems.ok) {
-          setItemList(cartItemList);
-          console.log("Response List:", cartItemList);
-          console.log("Pretty JSON:" + JSON.stringify(cartItemList, null, 2));
-          console.log(itemList)
+            setItemList(cartItemList);
         }
+    }
+
+    const fetchProducts = async () => {
+
+        for (const item of itemList) {
+            const fetchProduct = await fetch("/api/car/" + item.id.productId)
+            const product = await fetchProduct.json();
+
+            if(fetchProduct.ok) {
+               setProductList(prev => [...prev + product])
+            }
+        }
+
+        console.log("I worked!", productList)
     }
 
     const handleClick = async () => {
@@ -41,6 +53,7 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
         console.log("UseEffect Triggered!")
         if(cart) {
             fetchItems();
+            fetchProducts();
         }
     }, [cart, itemAdded]);
 
@@ -52,7 +65,7 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
                     <div key={index} className={'h-[50px] text-xl flex flex-wrap'}>
                         <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
                         <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
-                            <div>{item.id.product_id} Qnt:{item.quantity}</div>
+                            <div>{productList[0]} {item.id.productId} Qnt:{item.quantity}</div>
                             <div></div>
                         </div>
                     </div>

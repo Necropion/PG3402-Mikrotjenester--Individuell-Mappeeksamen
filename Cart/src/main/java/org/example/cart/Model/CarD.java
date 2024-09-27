@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CarD {
 
-    private Long product_id;
+    private Long productId;
     private String make;
     private String model;
     private Long carYear;

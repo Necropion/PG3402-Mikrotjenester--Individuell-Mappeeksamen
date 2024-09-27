@@ -16,7 +16,7 @@ public class CartItems {
     private CartItemsId id = new CartItemsId();
 
     @ManyToOne
-    @MapsId("cart_id")
+    @MapsId("cartId")
     @JoinColumn(name = "cart_id")
     @JsonIgnore
     private Cart cart;

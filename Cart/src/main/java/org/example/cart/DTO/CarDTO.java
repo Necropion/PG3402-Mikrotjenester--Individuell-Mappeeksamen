@@ -9,7 +9,7 @@ import org.example.cart.Model.CarD;
 public class CarDTO {
 
     private Long id;
-    private Long product_id;
+    private Long productId;
     private String make;
     private String model;
     private Long carYear;
@@ -17,7 +17,7 @@ public class CarDTO {
 
     public CarD getCarFromDealership() {
         CarD car = new CarD();
-        car.setProduct_id(this.product_id);
+        car.setProductId(this.productId);
         car.setMake(this.make);
         car.setModel(this.model);
         car.setCarYear(this.carYear);

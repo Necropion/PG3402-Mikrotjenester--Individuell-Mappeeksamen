@@ -1,6 +1,7 @@
 package org.example.cart.Controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.cart.DTO.CartItemRequestDTO;
 import org.example.cart.Model.Cart;
 import org.example.cart.Model.CartItems;
 import org.example.cart.Service.CartService;
@@ -31,8 +32,8 @@ public class CartController {
     }
 
     @PostMapping("/item")
-    public CartItems postCartItem(@RequestBody CartItems cartItems) {
-        return cartService.createCartItem(cartItems);
+    public CartItems postCartItem(@RequestBody CartItemRequestDTO cartItemRequestDTO) {
+        return cartService.createCartItem(cartItemRequestDTO);
     }
 
 

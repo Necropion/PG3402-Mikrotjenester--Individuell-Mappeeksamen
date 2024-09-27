@@ -12,13 +12,13 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class CartItemsId implements Serializable {
 
-    private Long cart_id;
-    private Long product_id;
+    private Long cartId;
+    private Long productId;
 
     public CartItemsId() {}
 
-    public CartItemsId(Long cart_id, Long product_id) {
-        this.cart_id = cart_id;
-        this.product_id = product_id;
+    public CartItemsId(Long cartId, Long productId) {
+        this.cartId = cartId;
+        this.productId = productId;
     }
 }

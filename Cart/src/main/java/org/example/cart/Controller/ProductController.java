@@ -15,8 +15,8 @@ public class ProductController {
 
     private final CarInfoRepository carInfoRepository;
 
-    @GetMapping("/api/car/{product_id}")
-    public CarD getCarInfo(@PathVariable Long product_id) {
-        return carInfoRepository.getCar(product_id);
+    @GetMapping("/api/car/{productId}")
+    public CarD getCarInfo(@PathVariable Long productId) {
+        return carInfoRepository.getCarByProductId(productId);
     }
 }

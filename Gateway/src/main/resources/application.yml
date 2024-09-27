@@ -29,7 +29,7 @@ spring:
         - id: cart
           uri: "http://localhost:8082"
           predicates:
-            - Path=/api/cart, /api/cart/**, /api/item, /api/item/**
+            - Path=/api/cart, /api/cart/**, /api/item, /api/item/**, /api/car, /api/car/**
       globalcors:
         cors-configurations:
           '[/**]':

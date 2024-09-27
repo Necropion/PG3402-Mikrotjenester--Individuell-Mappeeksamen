@@ -13,7 +13,7 @@ public class ProductService implements CarInfoRepository {
     private final CarClient carClient;
 
     @Override
-    public CarD getCar(Long product_id) {
-        return carClient.carInfoFromDealership(product_id).getCarFromDealership();
+    public CarD getCarByProductId(Long productId) {
+        return carClient.carInfoFromDealership(productId).getCarFromDealership();
     }
 }

@@ -2,6 +2,10 @@ package org.example.cart.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.cart.Client.CarClient;
+import org.example.cart.Controller.ProductController;
+import org.example.cart.DTO.CartItemRequestDTO;
+import org.example.cart.Model.CarD;
 import org.example.cart.Model.Cart;
 import org.example.cart.Model.CartItems;
 import org.example.cart.Model.CartItemsId;
@@ -31,14 +35,22 @@ public class CartService {
         return cartItemsRepository.findByCartId(cart_id);
     }
 
-    public CartItems createCartItem(CartItems cartItem) {
+    public CartItems createCartItem(CartItemRequestDTO cartItemRequestDTO) {
 
-        Cart cart = cartRepository.findById(cartItem.getId().getCart_id())
+        CartItems cartItem = new CartItems();
+
+        Cart cart = cartRepository.findById(cartItemRequestDTO.getCartId())
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
 
         log.info(cart.toString());
 
+        CartItemsId cartItemId = new CartItemsId();
+        cartItemId.setCartId(cartItemRequestDTO.getCartId());
+        cartItemId.setProductId(cartItemRequestDTO.getProductId());
+
+        cartItem.setId(cartItemId);
         cartItem.setCart(cart);
+        cartItem.setQuantity(cartItemRequestDTO.getQuantity());
         cartItemsRepository.save(cartItem);
 
         return cartItem;
