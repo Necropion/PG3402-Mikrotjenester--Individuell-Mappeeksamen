@@ -22,4 +22,5 @@ public class Car {
     private String model;
     private Long carYear;
     private String color;
+    private Long stock;
 }

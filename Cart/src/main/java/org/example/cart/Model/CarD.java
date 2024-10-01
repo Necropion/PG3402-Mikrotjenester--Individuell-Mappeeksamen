@@ -12,4 +12,5 @@ public class CarD {
     private String model;
     private Long carYear;
     private String color;
+    private Long stock;
 }

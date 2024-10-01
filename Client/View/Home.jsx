@@ -1,8 +1,7 @@
 import Header from "./Components/Header";
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import Cart from "./Components/Cart";
 import carImg from "../Images/car.svg"
-import {ApplicationContext} from "../Application";
 
 const Home = () => {
 
@@ -10,7 +9,7 @@ const Home = () => {
     const [carList, setCarList] = useState([])
     const [cartOpen, setCartOpen] = useState(false);
     const [cart, setCart] = useState(null);
-    const [itemAdded, setItemAdded] = useState(false)
+    const [itemAdded, setItemAdded] = useState(null)
 
     const fetchCars = async () => {
         const getAllCars = await fetch('/api/car')
@@ -38,7 +37,7 @@ const Home = () => {
 
         if(postCartItem.ok) {
             console.log(newCartItem);
-            setItemAdded(prev => !prev)
+            setItemAdded(e.target.dataset.productId)
         }
     };
 

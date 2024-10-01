@@ -1,5 +1,6 @@
 package com.vehicle.dealership.Controller;
 
+import com.vehicle.dealership.DTO.DealershipEventDTO;
 import com.vehicle.dealership.Model.Car;
 import com.vehicle.dealership.Service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class CarController {
     @PostMapping
     public Car addCar(@RequestBody Car car) {
         return carService.addCar(car);
+    }
+
+    @PutMapping()
+    public Car updateCar(@RequestBody DealershipEventDTO dealershipEventDTO) {
+        return carService.updateCarStock(dealershipEventDTO);
     }
 }

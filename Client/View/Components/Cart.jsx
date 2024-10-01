@@ -18,15 +18,18 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
         }
     }
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (productId) => {
 
-        for (const item of itemList) {
-            const fetchProduct = await fetch("/api/car/" + item.id.productId)
+        try {
+            const fetchProduct = await fetch("/api/car/" + productId)
             const product = await fetchProduct.json();
 
-            if(fetchProduct.ok) {
-               setProductList(prev => [...prev + product])
+            if (fetchProduct.ok) {
+                setProductList((prev) => [...prev, product])
+
             }
+        } catch (error) {
+            console.error("Failed to fetch products", error)
         }
 
         console.log("I worked!", productList)
@@ -50,22 +53,28 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
     };
 
     useEffect(() => {
-        console.log("UseEffect Triggered!")
+        console.log("UseEffect Triggered!", productList)
         if(cart) {
             fetchItems();
-            fetchProducts();
         }
     }, [cart, itemAdded]);
+
+    useEffect(() => {
+        if (itemAdded) {
+            console.log("Fetching product for itemAdded:", itemAdded);
+            fetchProducts(itemAdded)
+        }
+    }, [itemAdded]);
 
     return (
         <div className={'bg-white rounded-xl ml-[1vw] w-[25vw] max-h-[400px] flex flex-col justify-center'}>
             {(cartOpen === true) ? <h2 className={'text-2xl h-[10%]'}>CART</h2> : <div className={'h-[10%]'}></div>}
-            <div className={'flex flex-col h-[78%] border-black border-2'}>
+            <div className={'flex flex-col h-[78%] border-black border-2 overflow-scroll'}>
                 {itemList.map((item, index) => (
                     <div key={index} className={'h-[50px] text-xl flex flex-wrap'}>
                         <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
                         <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
-                            <div>{productList[0]} {item.id.productId} Qnt:{item.quantity}</div>
+                            <div>{productList[index].color} {productList[index].make} {productList[index].model} ({productList[index].carYear}) Qnt:{item.quantity}</div>
                             <div></div>
                         </div>
                     </div>

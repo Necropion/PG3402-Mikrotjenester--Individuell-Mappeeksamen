@@ -14,6 +14,7 @@ public class CarDTO {
     private String model;
     private Long carYear;
     private String color;
+    private Long stock;
 
     public CarD getCarFromDealership() {
         CarD car = new CarD();
@@ -22,6 +23,7 @@ public class CarDTO {
         car.setModel(this.model);
         car.setCarYear(this.carYear);
         car.setColor(this.color);
+        car.setStock(this.stock);
 
         return car;
     }

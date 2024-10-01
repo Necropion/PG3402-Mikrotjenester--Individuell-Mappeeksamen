@@ -1,5 +1,6 @@
 package com.vehicle.dealership.Service;
 
+import com.vehicle.dealership.DTO.DealershipEventDTO;
 import com.vehicle.dealership.Model.Car;
 import com.vehicle.dealership.Repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,13 @@ public class CarService {
     }
 
     public Car addCar(Car car) {
+        return carRepository.save(car);
+    }
+
+    public Car updateCarStock (DealershipEventDTO dealershipEventDTO) {
+        Car car = carRepository.findByProductId(dealershipEventDTO.getProductId());
+        car.setStock(car.getStock() - dealershipEventDTO.getQuantity());
+
         return carRepository.save(car);
     }
 }
