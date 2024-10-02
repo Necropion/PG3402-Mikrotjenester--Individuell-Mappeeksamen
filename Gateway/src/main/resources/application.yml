@@ -17,17 +17,17 @@ spring:
       routes:
         # Authentication service route
         - id: authentication
-          uri: "http://localhost:8080"
+          uri: lb://authentication/
           predicates:
             - Path=/api/user, /api/user/**, /api/user/auth, /api/user/auth/**
         # Dealership service route
         - id: dealership
-          uri: "http://localhost:8081"
+          uri: lb://dealership/
           predicates:
             - Path=/api/car, /api/car/**
         # Cart service route
         - id: cart
-          uri: "http://localhost:8082"
+          uri: lb://cart/
           predicates:
             - Path=/api/cart, /api/cart/**, /api/item, /api/item/**, /api/product/car, /api/product/car/**
       globalcors:

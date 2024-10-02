@@ -74,8 +74,9 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
                     <div key={index} className={'h-[50px] text-xl flex flex-wrap'}>
                         <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
                         <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
-                            <div>{productList[index].color} {productList[index].make} {productList[index].model} ({productList[index].carYear}) Qnt:{item.quantity}</div>
-                            <div></div>
+                            {productList[index] ? (
+                                <div>{productList[index].color} {productList[index].make} {productList[index].model} ({productList[index].carYear}) Qnt:{item.quantity}</div>
+                            ) : (<div></div>)}
                         </div>
                     </div>
                 ))}
