@@ -17,7 +17,7 @@ public class CarClient {
 
     public CarClient(
             RestTemplateBuilder restTemplateBuilder,
-            @Value("http://localhost:8081") final String url
+            @Value("${client.host}") final String url
     ) {
         this.restTemplate = restTemplateBuilder.build();
         this.restServiceURL = url;

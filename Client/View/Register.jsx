@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 const Register = () => {
 
     const navigate = useNavigate()
+    const gateway = process.env.REACT_APP_API_URL;
 
     // Variables
     const [username, setUsername] = useState("");
@@ -21,7 +22,7 @@ const Register = () => {
             if (!username || !password || !email) {
                 setStatusMsg("Please fill in all fields!")
             } else {
-                const newUser = await fetch('/api/user', {
+                const newUser = await fetch(`${gateway}/api/user`, {
                     method: "POST",
                     body: JSON.stringify({ username, password, email }),
                     headers: {

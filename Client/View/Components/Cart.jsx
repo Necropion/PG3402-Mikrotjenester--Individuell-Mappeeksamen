@@ -5,12 +5,13 @@ import carImg from "../../Images/car.svg";
 const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
 
     const { user } = useContext(ApplicationContext);
+    const gateway = process.env.REACT_APP_API_URL;
 
     const [itemList, setItemList] = useState([]);
     const [productList, setProductList] = useState([]);
 
     const fetchItems = async () => {
-        const getCartItems = await fetch("/api/item/" + cart.id)
+        const getCartItems = await fetch(`${gateway}/api/item/${cart.id}`)
         const cartItemList = await getCartItems.json();
 
         if(getCartItems.ok) {
@@ -21,7 +22,7 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
     const fetchProducts = async (productId) => {
 
         try {
-            const fetchProduct = await fetch("/api/car/" + productId)
+            const fetchProduct = await fetch(`${gateway}/api/car/${productId}`)
             const product = await fetchProduct.json();
 
             if (fetchProduct.ok) {
@@ -36,7 +37,7 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
     }
 
     const handleClick = async () => {
-        const createCart = await fetch("/api/cart", {
+        const createCart = await fetch(`${gateway}/api/cart`, {
             method: "POST",
             body: JSON.stringify({user_id: user.id}),
             headers: {

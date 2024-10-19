@@ -1,0 +1,14 @@
+#
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+ENV NODE_ENV=docker
+RUN npm install
+COPY . .
+RUN npm run build
+FROM node:18-alpine AS production
+RUN npm install -g serve
+WORKDIR /app
+COPY --from=build /app/dist ./dist
+EXPOSE 1234
+CMD ["serve", "-s", "dist", "-l", "1234"]

@@ -1,0 +1,26 @@
+# Ignore node_modules directory (dependencies will be installed in the container)
+node_modules
+
+# Ignore build directory (will be generated in the container)
+dist
+build
+
+# Ignore environment files (if any, for security reasons)
+.env.development
+.env.test
+.env.production
+
+# Ignore parcel cache or any other cache files
+.parcel-cache
+
+# Ignore temporary or system files
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+*.log
+
+# Ignore Git files
+.git
+.gitignore

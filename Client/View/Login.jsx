@@ -9,6 +9,7 @@ const Login = () => {
 
     const navigate = useNavigate()
     const { setUser } = useContext(ApplicationContext)
+    const gateway = process.env.REACT_APP_API_URL;
 
     // User Variables
     const [username, setUsername] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
 
     const fetchUser = async (userId) => {
         try {
-            const getUser = await fetch('/api/user/' + userId)
+            const getUser = await fetch(`${gateway}/api/user/${userId}`)
 
             if (getUser.ok) {
                 const user = await getUser.json();
@@ -49,7 +50,7 @@ const Login = () => {
         // Login Auth Fetch
         } else if(e.target.id === "loginBtn") {
             try {
-                const userAuth = await fetch(`/api/user/auth?username=${username}&password=${password}`)
+                const userAuth = await fetch(`${gateway}/api/user/auth?username=${username}&password=${password}`)
                 console.log(`Fetch made to: /api/user/auth?username=${username}&password=${password}`)
 
                 if (userAuth.ok) {

@@ -5,6 +5,8 @@ import carImg from "../Images/car.svg"
 
 const Home = () => {
 
+    const gateway = process.env.REACT_APP_API_URL;
+
     // Car Variables
     const [carList, setCarList] = useState([])
     const [cartOpen, setCartOpen] = useState(false);
@@ -12,7 +14,7 @@ const Home = () => {
     const [itemAdded, setItemAdded] = useState(null)
 
     const fetchCars = async () => {
-        const getAllCars = await fetch('/api/car')
+        const getAllCars = await fetch(`${gateway}/api/car`)
         const allCars = await getAllCars.json();
 
         if(getAllCars.ok) {
@@ -22,7 +24,7 @@ const Home = () => {
 
     const addItemToCart = async (e) => {
         console.log(e.target.dataset.productId)
-        const postCartItem = await fetch("/api/item",{
+        const postCartItem = await fetch(`${gateway}/api/item`,{
             method: "POST",
             body: JSON.stringify({
                 cartId: cart.id,

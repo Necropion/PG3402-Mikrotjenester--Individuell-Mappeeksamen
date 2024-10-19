@@ -1,0 +1,17 @@
+[
+  {
+    "key": "config/",
+    "flags": 0,
+    "value": "IA=="
+  },
+  {
+    "key": "config/authentication,dev/",
+    "flags": 0,
+    "value": "IA=="
+  },
+  {
+    "key": "config/authentication,dev/application.yml",
+    "flags": 0,
+    "value": "c2VydmVyOgogIHBvcnQ6IDgwODA="
+  }
+]
