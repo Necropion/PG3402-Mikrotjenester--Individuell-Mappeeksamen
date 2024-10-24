@@ -17,45 +17,51 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
 
+    // Console Coloring for improved logging visibility
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_GREEN = "\u001B[32m";  // Green for successful operations
+    private static final String ANSI_YELLOW = "\u001B[33m"; // Yellow for warnings
+    private static final String ANSI_RED = "\u001B[31m";    // Red for errors
+
     private final UserService userService;
 
     @GetMapping()
     public List<UserModel> getAllUsers() {
         List<UserModel> userList = userService.allUsers();
-        log.info("User List Retrieved: {}", userList); // 200 OK
+        log.info(ANSI_GREEN + "User List Retrieved: {}" + ANSI_RESET, userList); // 200 OK
 
         return userList;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable Long id) {
-        log.info("GET User by ID: {}", id);
+        log.info(ANSI_GREEN + "GET User by ID: {}" + ANSI_RESET, id);
         UserModel user = userService.getOneUserById(id);
 
         if (user == null) {
-            log.warn("User with ID {} not found", id);
+            log.warn(ANSI_YELLOW + "User with ID {} not found" + ANSI_RESET, id);
             throw new NoUserFoundException("No user found with ID: " + id); // 404 Not Found
         }
 
-        log.info("User retrieved: {}", user);
+        log.info(ANSI_GREEN + "User retrieved: {}" + ANSI_RESET, user);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/auth")
     public Authentication authUser(@RequestParam String username, @RequestParam String password) {
-        log.info("Authenticating User: {}", username);
+        log.info(ANSI_GREEN + "Authenticating User: {}" + ANSI_RESET, username);
         Authentication userAuth = userService.getUserByUsernameAndPassword(username, password);
 
-        log.info("Authentication Result: {}", userAuth.isAuthentication());
+        log.info(ANSI_GREEN + "Authentication Result: {}" + ANSI_RESET, userAuth.isAuthentication());
         return userAuth;
     }
 
     @PostMapping()
     public UserModel registerUser(@RequestBody UserModel userModel) {
-        log.info("POST User: {}", userModel);
+        log.info(ANSI_GREEN + "POST User: {}" + ANSI_RESET, userModel);
         userService.addUser(userModel);
 
-        log.info("User Added: {}", userModel);
+        log.info(ANSI_GREEN + "User Added: {}" + ANSI_RESET, userModel);
         return userModel;
     }
 }
