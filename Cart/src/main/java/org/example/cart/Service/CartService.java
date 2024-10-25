@@ -2,18 +2,19 @@ package org.example.cart.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.cart.Client.CarClient;
-import org.example.cart.Controller.ProductController;
 import org.example.cart.DTO.CartItemRequestDTO;
-import org.example.cart.Model.CarD;
+import org.example.cart.Exception.Cart.CartNotFoundException;
 import org.example.cart.Model.Cart;
 import org.example.cart.Model.CartItems;
 import org.example.cart.Model.CartItemsId;
 import org.example.cart.Repository.CartItemsRepository;
 import org.example.cart.Repository.CartRepository;
+import org.example.cart.Utility.ConsoleColor;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -32,6 +33,10 @@ public class CartService {
     }
 
     public List<CartItems> fetchAllCartItems(Long cart_id) {
+        if(!cartRepository.existsById(cart_id)) {
+            throw new CartNotFoundException(ConsoleColor.Yellow("Cart with ID: " + cart_id + " does not exist"));
+        }
+
         return cartItemsRepository.findByCartId(cart_id);
     }
 
@@ -41,8 +46,6 @@ public class CartService {
 
         Cart cart = cartRepository.findById(cartItemRequestDTO.getCartId())
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
-
-        log.info(cart.toString());
 
         CartItemsId cartItemId = new CartItemsId();
         cartItemId.setCartId(cartItemRequestDTO.getCartId());
