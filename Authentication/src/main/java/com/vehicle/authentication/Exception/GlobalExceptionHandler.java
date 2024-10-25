@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUsersNotFound(UserNotFoundException exception) {
         ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-        log.warn(ConsoleColor.Yellow(exception.getMessage()), exception);
+        log.warn(exception.getMessage(), exception);
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidDataException.class)
     public ResponseEntity<ErrorResponse> handleInvalidData(InvalidDataException exception) {
         ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
-        log.warn(ConsoleColor.Yellow(exception.getMessage()), exception);
+        log.warn(exception.getMessage(), exception);
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
