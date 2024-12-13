@@ -7,12 +7,11 @@ import {ApplicationContext} from "../Application";
 
 const Home = () => {
 
-    const { user, cartList, cartDeleted } = useContext(ApplicationContext);
+    const { user, cartList, cartDeleted, setCartSelected } = useContext(ApplicationContext);
     const gateway = process.env.REACT_APP_API_URL;
 
     // Car Variables
     const [carList, setCarList] = useState([])
-    const [cartCreated, setCartCreated] = useState(false);
     const [cart, setCart] = useState(null);
     const [itemAdded, setItemAdded] = useState(null)
 
@@ -30,7 +29,7 @@ const Home = () => {
         const postCartItem = await fetch(`${gateway}/api/item`,{
             method: "POST",
             body: JSON.stringify({
-                cartId: cart?.id,
+                cartId: cart.id,
                 productId: e.target.dataset.productId,
                 quantity: 1
             }),
@@ -57,8 +56,8 @@ const Home = () => {
         const newCart = await createCart.json();
 
         if(createCart.ok) {
-            setCartCreated(prev => !prev);
             setCart(newCart);
+            setCartSelected(true);
             console.log(newCart);
         }
     };
@@ -69,14 +68,9 @@ const Home = () => {
         if(e.target.id === "buyBtn") {
             if(!cartList){
                 await createCart();
-                if(cart) {
-                    await addItemToCart(e);
-                }
             }
-            if(cartList) {
-                if(cart) {
-                    await addItemToCart(e);
-                }
+            if(cart) {
+                await addItemToCart(e);
             }
         }
     }
@@ -108,12 +102,7 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-                <CartList cartCreated={cartCreated}
-                      setCartCreated={setCartCreated}
-                      cart={cart}
-                      setCart={setCart}
-                      itemAdded={itemAdded}
-                />
+                <Cart cart={cart} setCart={setCart} itemAdded={itemAdded}/>
             </main>
         </>
     )

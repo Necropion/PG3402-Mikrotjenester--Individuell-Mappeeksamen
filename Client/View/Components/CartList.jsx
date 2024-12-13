@@ -1,9 +1,9 @@
 import {useContext, useEffect, useState} from "react";
 import {ApplicationContext} from "../../Application";
 
-const CartList = ({ cartCreated }) => {
+const CartList = ({ setCart }) => {
 
-    const { user, cartList, setCartList, cartDeleted, setCartDeleted } = useContext(ApplicationContext);
+    const { user, cartList, setCartList, cartDeleted, setCartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
     const gateway = process.env.REACT_APP_API_URL
 
     const fetchUserCarts = async () => {
@@ -25,31 +25,42 @@ const CartList = ({ cartCreated }) => {
 
     }
 
-    const deleteCart = async (e) => {
+    const handleClick = async (e) => {
         e.preventDefault();
 
-        const deleteCartById = await fetch(`${gateway}/api/cart/${e.target.dataset.cartId}`, {
-            method: 'DELETE'
+        if(e.target.id === "deleteBtn") {
+            const deleteCartById = await fetch(`${gateway}/api/cart/${e.target.dataset.cartId}`, {
+                method: 'DELETE'
             })
 
-        if(deleteCartById.ok) {
-            setCartDeleted(prev => !prev)
-            console.log("Cart Deleted!")
+            if (deleteCartById.ok) {
+                setCartDeleted(prev => !prev)
+                console.log("Cart Deleted!")
+            }
+        }
+
+        if(e.target.id === "selectBtn") {
+            const selectedCart = cartList.find((cart) => String(cart.id) === e.target.dataset.cartId)
+            if(selectedCart) {
+                setCart(selectedCart);
+                setCartSelected(true);
+            }
         }
     }
 
     useEffect(() => {
         fetchUserCarts()
-    }, [cartCreated, cartDeleted]);
+    }, [cartSelected, cartDeleted]);
 
     return (
         <div className={'bg-white rounded-xl ml-[1vw] w-[25vw] max-h-[400px] flex flex-col justify-center'}>
             {cartList ? cartList.map((cart, index) => (
                 <div key={index} className={'h-[50px] text-xl flex flex-wrap'}>
                     <div>Cart ID: {cart.id} User ID: {cart.userId}</div>
-                    <button data-cart-id={cart.id} onClick={deleteCart}>Delete</button>
+                    <button id="deleteBtn" data-cart-id={cart.id} onClick={handleClick}>Delete</button>
+                    <button id="selectBtn" data-cart-id={cart.id} onClick={handleClick}>Select</button>
                 </div>
-            )) : <div>No carts</div>}
+            )) : <div className={'text-2xl'}>Add an item to the cart to begin.</div>}
         </div>
     )
 }

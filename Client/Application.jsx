@@ -13,9 +13,15 @@ const Application = () => {
     const [user, setUser] = useState(null);
     const [cartList, setCartList] = useState(null);
     const [cartDeleted, setCartDeleted] = useState(false);
+    const [cartSelected, setCartSelected] = useState(false);
 
     return(
-        <ApplicationContext.Provider value={ { user, setUser, cartList, setCartList, cartDeleted, setCartDeleted } }>
+        <ApplicationContext.Provider value={ {
+            user, setUser,
+            cartList, setCartList,
+            cartDeleted, setCartDeleted,
+            cartSelected, setCartSelected
+        } }>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />}/>

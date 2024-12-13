@@ -42,6 +42,7 @@ public class CartController {
     @DeleteMapping("/cart/{cartId}")
     public String deleteCartByCartID(@PathVariable Long cartId) {
         cartService.deleteCartById(cartId);
+        log.info(ConsoleColor.Green("Cart with ID: {}, deleted!"), cartId);
         return "Cart with ID: " + cartId + ",  deleted!";
     }
 
