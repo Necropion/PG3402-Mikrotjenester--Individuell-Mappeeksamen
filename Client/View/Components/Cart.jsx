@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {ApplicationContext} from "../../Application";
 import carImg from "../../Images/car.svg";
+import CartList from "./CartList";
 
 const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
 
@@ -36,23 +37,6 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
         console.log("I worked!", productList)
     }
 
-    const handleClick = async () => {
-        const createCart = await fetch(`${gateway}/api/cart`, {
-            method: "POST",
-            body: JSON.stringify({user_id: user.id}),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const newCart = await createCart.json();
-
-        if(createCart.ok) {
-            setCartOpen(true)
-            setCart(newCart)
-            console.log(newCart)
-        }
-    };
-
     useEffect(() => {
         console.log("UseEffect Triggered!", productList)
         if(cart) {
@@ -86,6 +70,7 @@ const Cart = ({ cartOpen, setCartOpen, cart, setCart, itemAdded }) => {
                     onClick={handleClick}>
                 Open Cart
             </button>
+            <CartList />
         </div>
     )
 }

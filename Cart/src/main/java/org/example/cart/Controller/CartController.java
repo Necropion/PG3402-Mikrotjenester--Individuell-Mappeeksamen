@@ -21,10 +21,16 @@ public class CartController {
 
     private final CartService cartService;
 
+    // Cart Management
+    @GetMapping("/cart")
+    public List<Cart> getCart() {
+        return cartService.fetchAllCarts();
+    }
+
     @PostMapping("/cart")
     public Cart postCart(@RequestBody Cart cart) {
-        log.info(ConsoleColor.Green("POST Request Create Cart for User ID: {}"), cart.getUser_id());
-        if (cart.getUser_id() == null) {
+        log.info(ConsoleColor.Green("POST Request Create Cart for User ID: {}"), cart.getUserId());
+        if (cart.getUserId() == null) {
             throw new InvalidDataException("User ID cannot be null");
         }
         Cart newCart = cartService.createCart(cart);
@@ -33,6 +39,18 @@ public class CartController {
         return newCart;
     }
 
+    @DeleteMapping("/cart/{cartId}")
+    public String deleteCartByCartID(@PathVariable Long cartId) {
+        cartService.deleteCartById(cartId);
+        return "Cart with ID: " + cartId + ",  deleted!";
+    }
+
+    @GetMapping("/cart/{user_id}")
+    public List<Cart> getAllCartByUserId(@PathVariable Long user_id) {
+        return cartService.fetchAllUserCarts(user_id);
+    }
+
+    // Cart Items Management
     @GetMapping("/item")
     public List<CartItems> getAllCartItems() {
         log.info(ConsoleColor.Green("GET Request for All Cart Items"));

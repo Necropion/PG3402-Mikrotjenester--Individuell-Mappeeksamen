@@ -5,7 +5,6 @@ import com.vehicle.authentication.Exception.User.UserNotFoundException;
 import com.vehicle.authentication.Model.Authentication;
 import com.vehicle.authentication.Model.UserModel;
 import com.vehicle.authentication.Service.UserService;
-import com.vehicle.authentication.Utility.ConsoleColor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -24,42 +23,42 @@ public class UserController {
     @GetMapping()
     public List<UserModel> getAllUsers() {
         List<UserModel> userList = userService.allUsers();
-        log.info(ConsoleColor.Green("User List Received {}"), userList); // 200 OK
+        log.info("User List Received {}", userList); // 200 OK
 
         return userList;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable Long id) {
-        log.info(ConsoleColor.Green("GET Request User by ID: {}"), id);
+        log.info("GET Request User by ID: {}", id);
         UserModel user = userService.getOneUserById(id);
 
         if (user == null) {
             throw new UserNotFoundException("No user found with ID: " + id); // 404 Not Found
         }
 
-        log.info(ConsoleColor.Green("User retrieved: {}"), user);
+        log.info("User retrieved: {}", user);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/auth")
     public Authentication authUser(@RequestParam String username, @RequestParam String password) {
-        log.info(ConsoleColor.Green("Authenticating Request User: {}"), username);
+        log.info("Authenticating Request User: {}", username);
         Authentication userAuth = userService.getUserByUsernameAndPassword(username, password);
 
-        log.info(ConsoleColor.Green("Authentication Result: {}"), userAuth.isAuthentication());
+        log.info("Authentication Result: {}", userAuth.isAuthentication());
         return userAuth;
     }
 
     @PostMapping()
     public UserModel registerUser(@RequestBody UserModel userModel) {
-        log.info(ConsoleColor.Green("POST Request User: {}"), userModel);
+        log.info("POST Request User: {}", userModel);
         if(userModel.getUsername() == null || userModel.getPassword() == null || userModel.getEmail() == null) {
             throw new InvalidDataException("User Data has empty fields");
         }
         userService.addUser(userModel);
 
-        log.info(ConsoleColor.Green("User Added: {}"), userModel);
+        log.info("User Added: {}", userModel);
         return userModel;
     }
 }

@@ -24,10 +24,28 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemsRepository cartItemsRepository;
 
+    // Cart Management
+    public List<Cart> fetchAllCarts() {
+        return cartRepository.findAll();
+    }
+
+    public List<Cart> fetchAllUserCarts(Long userId) {
+        return cartRepository.findByUserId(userId);
+    }
+
     public Cart createCart(Cart cart) {
         return cartRepository.save(cart);
     }
 
+    public void deleteCartById(Long cartId) {
+        if(!cartRepository.existsById(cartId)) {
+            throw new CartNotFoundException(ConsoleColor.Yellow("Cart with ID: " + cartId + " does not exist"));
+        }
+
+        cartRepository.deleteById(cartId);
+    }
+
+    // Cart Items Management
     public List<CartItems> fetchCartItemsList() {
         return cartItemsRepository.findAll();
     }

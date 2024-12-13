@@ -1,15 +1,18 @@
 import Header from "./Components/Header";
-import { useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Cart from "./Components/Cart";
 import carImg from "../Images/car.svg"
+import CartList from "./Components/CartList";
+import {ApplicationContext} from "../Application";
 
 const Home = () => {
 
+    const { user, cartList, cartDeleted } = useContext(ApplicationContext);
     const gateway = process.env.REACT_APP_API_URL;
 
     // Car Variables
     const [carList, setCarList] = useState([])
-    const [cartOpen, setCartOpen] = useState(false);
+    const [cartCreated, setCartCreated] = useState(false);
     const [cart, setCart] = useState(null);
     const [itemAdded, setItemAdded] = useState(null)
 
@@ -27,7 +30,7 @@ const Home = () => {
         const postCartItem = await fetch(`${gateway}/api/item`,{
             method: "POST",
             body: JSON.stringify({
-                cartId: cart.id,
+                cartId: cart?.id,
                 productId: e.target.dataset.productId,
                 quantity: 1
             }),
@@ -43,17 +46,48 @@ const Home = () => {
         }
     };
 
+    const createCart = async () => {
+        const createCart = await fetch(`${gateway}/api/cart`, {
+            method: "POST",
+            body: JSON.stringify({userId: user.id}),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const newCart = await createCart.json();
+
+        if(createCart.ok) {
+            setCartCreated(prev => !prev);
+            setCart(newCart);
+            console.log(newCart);
+        }
+    };
+
     const handleClick = async (e) => {
         e.preventDefault();
 
         if(e.target.id === "buyBtn") {
-            await addItemToCart(e);
+            if(!cartList){
+                await createCart();
+                if(cart) {
+                    await addItemToCart(e);
+                }
+            }
+            if(cartList) {
+                if(cart) {
+                    await addItemToCart(e);
+                }
+            }
         }
     }
 
     useEffect(() => {
         fetchCars();
     }, []);
+
+    useEffect(() => {
+        setCart(null)
+    }, [cartDeleted]);
 
     return(
         <>
@@ -74,8 +108,8 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-                <Cart cartOpen={cartOpen}
-                      setCartOpen={setCartOpen}
+                <CartList cartCreated={cartCreated}
+                      setCartCreated={setCartCreated}
                       cart={cart}
                       setCart={setCart}
                       itemAdded={itemAdded}

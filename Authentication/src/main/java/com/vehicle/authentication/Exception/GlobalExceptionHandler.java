@@ -2,7 +2,6 @@ package com.vehicle.authentication.Exception;
 
 import com.vehicle.authentication.Exception.User.InvalidDataException;
 import com.vehicle.authentication.Exception.User.UserNotFoundException;
-import com.vehicle.authentication.Utility.ConsoleColor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(Exception exception) {
         ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred");
-        log.error(ConsoleColor.Red(exception.getMessage()), exception);
+        log.error(exception.getMessage(), exception);
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -11,9 +11,11 @@ export const ApplicationContext = createContext();
 const Application = () => {
 
     const [user, setUser] = useState(null);
+    const [cartList, setCartList] = useState(null);
+    const [cartDeleted, setCartDeleted] = useState(false);
 
     return(
-        <ApplicationContext.Provider value={ { user, setUser } }>
+        <ApplicationContext.Provider value={ { user, setUser, cartList, setCartList, cartDeleted, setCartDeleted } }>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />}/>
