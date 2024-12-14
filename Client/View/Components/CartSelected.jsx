@@ -5,7 +5,7 @@ import CartList from "./CartList";
 
 const CartSelected = ({ cart, setCart, itemAdded }) => {
 
-    const { user, setCartSelected } = useContext(ApplicationContext);
+    const { user, cartList,  setCartSelected } = useContext(ApplicationContext);
     const gateway = process.env.REACT_APP_API_URL;
 
     const [itemList, setItemList] = useState([]);
@@ -40,6 +40,7 @@ const CartSelected = ({ cart, setCart, itemAdded }) => {
     const handleClick = (e) => {
         e.preventDefault();
         setCartSelected(false);
+        setCart(null);
     }
 
     useEffect(() => {
@@ -62,7 +63,7 @@ const CartSelected = ({ cart, setCart, itemAdded }) => {
 
     return (
         <div className={'bg-white rounded-xl ml-[1vw] w-[25vw] max-h-[400px] flex flex-col justify-center'}>
-            <h2 className={'text-2xl h-[10%]'}>CART: {cart.id}</h2>
+            <h2 className={'text-2xl h-[10%]'}>CART: {cartList.findIndex((c) => c.id === cart.id) + 1}</h2>
             <div className={'flex flex-col h-[78%] border-black border-2 overflow-scroll'}>
                 {itemList.map((item, index) => (
                     <div key={index} className={'h-[50px] text-xl flex flex-wrap'}>

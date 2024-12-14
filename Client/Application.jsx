@@ -10,6 +10,9 @@ export const ApplicationContext = createContext();
 
 const Application = () => {
 
+    // Backend Access
+    const gateway = process.env.REACT_APP_API_URL;
+
     const [user, setUser] = useState(null);
     const [cartList, setCartList] = useState(null);
     const [cartDeleted, setCartDeleted] = useState(false);
@@ -17,6 +20,7 @@ const Application = () => {
 
     return(
         <ApplicationContext.Provider value={ {
+            gateway,
             user, setUser,
             cartList, setCartList,
             cartDeleted, setCartDeleted,

@@ -4,11 +4,11 @@ import Cart from "./Components/Cart";
 import carImg from "../Images/car.svg"
 import CartList from "./Components/CartList";
 import {ApplicationContext} from "../Application";
+import cartSelected from "./Components/CartSelected";
 
 const Home = () => {
 
-    const { user, cartList, cartDeleted, setCartSelected } = useContext(ApplicationContext);
-    const gateway = process.env.REACT_APP_API_URL;
+    const { gateway, user, cartList, cartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
 
     // Car Variables
     const [carList, setCarList] = useState([])
