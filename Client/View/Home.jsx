@@ -24,12 +24,12 @@ const Home = () => {
         }
     }
 
-    const addItemToCart = async (e) => {
+    const addItemToCart = async (e, activeCart) => {
         console.log(e.target.dataset.productId)
         const postCartItem = await fetch(`${gateway}/api/item`,{
             method: "POST",
             body: JSON.stringify({
-                cartId: cart.id,
+                cartId: activeCart.id,
                 productId: e.target.dataset.productId,
                 quantity: 1
             }),
@@ -59,18 +59,24 @@ const Home = () => {
             setCart(newCart);
             setCartSelected(true);
             console.log(newCart);
+            return newCart;
         }
+
+        console.log("Failed to create a new cart");
+        return null;
     };
 
     const handleClick = async (e) => {
         e.preventDefault();
 
         if(e.target.id === "buyBtn") {
-            if(!cartList){
-                await createCart();
+            let activeCart = cart
+
+            if(!activeCart){
+                activeCart = await createCart();
             }
-            if(cart) {
-                await addItemToCart(e);
+            if(activeCart) {
+                await addItemToCart(e, activeCart);
             }
         }
     }
