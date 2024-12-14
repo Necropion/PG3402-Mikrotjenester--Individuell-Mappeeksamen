@@ -25,6 +25,7 @@ const Home = () => {
     }
 
     const addItemToCart = async (e, activeCart) => {
+        setItemAdded(null);
         console.log(e.target.dataset.productId)
         const postCartItem = await fetch(`${gateway}/api/item`,{
             method: "POST",
@@ -46,6 +47,7 @@ const Home = () => {
     };
 
     const createCart = async () => {
+
         const createCart = await fetch(`${gateway}/api/cart`, {
             method: "POST",
             body: JSON.stringify({userId: user.id}),
