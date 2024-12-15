@@ -1,5 +1,6 @@
 package com.vehicle.authentication.Service;
 
+import com.vehicle.authentication.DTO.UserDTO;
 import com.vehicle.authentication.Model.Authentication;
 import com.vehicle.authentication.Model.UserModel;
 import com.vehicle.authentication.Repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -15,14 +17,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<UserModel> allUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> allUsers() {
+        return userRepository.findAll().stream().map(user -> new UserDTO(
+                user.getId(), user.getUsername(), user.getEmail())).collect(Collectors.toList()
+        );
     }
 
-    public UserModel getOneUserById(Long id) {
+    public UserDTO getOneUserById(Long id) {
         Optional<UserModel> user = userRepository.findById(id);
         if(user.isPresent()) {
-            return user.get();
+            return new UserDTO(user.get().getId(), user.get().getUsername(), user.get().getEmail());
         }
         return null;
     }

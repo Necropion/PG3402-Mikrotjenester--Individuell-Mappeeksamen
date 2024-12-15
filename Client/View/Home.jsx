@@ -8,7 +8,7 @@ import cartSelected from "./Components/CartSelected";
 
 const Home = () => {
 
-    const { gateway, user, cartList, setCartList, cartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
+    const { gateway, user, cartList, setCartList, cartDeleted, setCartSelected } = useContext(ApplicationContext);
 
     // Car Variables
     const [carList, setCarList] = useState([])

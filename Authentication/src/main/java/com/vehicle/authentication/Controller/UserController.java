@@ -1,5 +1,6 @@
 package com.vehicle.authentication.Controller;
 
+import com.vehicle.authentication.DTO.UserDTO;
 import com.vehicle.authentication.Exception.User.InvalidDataException;
 import com.vehicle.authentication.Exception.User.UserNotFoundException;
 import com.vehicle.authentication.Model.Authentication;
@@ -21,17 +22,17 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping()
-    public List<UserModel> getAllUsers() {
-        List<UserModel> userList = userService.allUsers();
+    public List<UserDTO> getAllUsers() {
+        List<UserDTO> userList = userService.allUsers();
         log.info("User List Received {}", userList); // 200 OK
 
         return userList;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserModel> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         log.info("GET Request User by ID: {}", id);
-        UserModel user = userService.getOneUserById(id);
+        UserDTO user = userService.getOneUserById(id);
 
         if (user == null) {
             throw new UserNotFoundException("No user found with ID: " + id); // 404 Not Found
