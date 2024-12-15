@@ -5,11 +5,16 @@ import {ApplicationContext} from "../../Application";
 
 const Header = () => {
 
-    const { user, setUser } = useContext(ApplicationContext);
+    const { user, setUser, setCartList, setCart } = useContext(ApplicationContext);
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        setUser(null)
+        setUser(null);
+        setCartList(null);
+        setCart(null);
+        localStorage.setItem("user", null);
+        localStorage.setItem("cartList", null);
+        localStorage.setItem("cart", null);
         navigate("/")
     }
 

@@ -13,18 +13,31 @@ const Application = () => {
     // Backend Access
     const gateway = process.env.REACT_APP_API_URL;
 
-    const [user, setUser] = useState(null);
-    const [cartList, setCartList] = useState(null);
+    // Persisting variables for app context
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem("user");
+        return storedUser ? JSON.parse(storedUser) : null
+    });
+
+    const [cartList, setCartList] = useState(() => {
+        const storedCartList =  localStorage.getItem("cartList");
+        return storedCartList ? JSON.parse(storedCartList) : null
+    });
+
+    const [cart, setCart] = useState(() => {
+        const storedCart = localStorage.getItem("cart");
+        return storedCart ? JSON.parse(storedCart) : null
+    });
+
     const [cartDeleted, setCartDeleted] = useState(false);
-    const [cartSelected, setCartSelected] = useState(false);
 
     return(
         <ApplicationContext.Provider value={ {
             gateway,
             user, setUser,
             cartList, setCartList,
-            cartDeleted, setCartDeleted,
-            cartSelected, setCartSelected
+            cart, setCart,
+            cartDeleted, setCartDeleted
         } }>
             <BrowserRouter>
                 <Routes>

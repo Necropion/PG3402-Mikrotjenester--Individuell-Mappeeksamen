@@ -1,11 +1,12 @@
 import Header from "./Components/Header";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {ApplicationContext} from "../Application";
 
 const Register = () => {
 
+    const { gateway } = useContext(ApplicationContext);
     const navigate = useNavigate()
-    const gateway = process.env.REACT_APP_API_URL;
 
     // Variables
     const [username, setUsername] = useState("");

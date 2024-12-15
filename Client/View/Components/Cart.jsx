@@ -3,14 +3,14 @@ import {ApplicationContext} from "../../Application";
 import CartSelected from "./CartSelected";
 import CartList from "./CartList";
 
-const Cart = memo(({ cart, setCart, itemAdded}) => {
+const Cart = memo(({ itemAdded }) => {
 
-    const { cartSelected } = useContext(ApplicationContext);
+    const { cart } = useContext(ApplicationContext);
 
-    return cartSelected ? (
-        <CartSelected cart={cart} setCart={setCart} itemAdded={itemAdded}/>
+    return cart ? (
+        <CartSelected itemAdded={itemAdded}/>
     ) : (
-        <CartList cart={cart} setCart={setCart} itemAdded={itemAdded}/>
+        <CartList itemAdded={itemAdded}/>
     )
 })
 

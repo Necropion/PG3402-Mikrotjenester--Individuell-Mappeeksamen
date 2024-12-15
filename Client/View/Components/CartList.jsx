@@ -1,10 +1,9 @@
 import {useContext, useEffect, useState} from "react";
 import {ApplicationContext} from "../../Application";
 
-const CartList = ({ setCart }) => {
+const CartList = () => {
 
-    const { user, cartList, setCartList, cartDeleted, setCartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
-    const gateway = process.env.REACT_APP_API_URL
+    const { gateway, user, cartList, setCartList,  setCart, cartDeleted, setCartDeleted } = useContext(ApplicationContext);
 
     const fetchUserCarts = async () => {
         console.log("fetching user carts...")
@@ -15,10 +14,12 @@ const CartList = ({ setCart }) => {
             console.log("Carts length: " + carts.length)
             if(carts.length > 0) {
                 setCartList(carts)
+                localStorage.setItem("cartList", JSON.stringify(carts))
                 console.log("Carts successfully fetched!")
             }
             if (carts.length === 0) {
                 setCartList(null);
+                localStorage.setItem("cartList", null)
                 console.log("Carts successfully fetched!")
             }
         }
@@ -39,7 +40,7 @@ const CartList = ({ setCart }) => {
 
             if(createCart.ok) {
                 setCart(newCart);
-                setCartSelected(true);
+                localStorage.setItem("cart", JSON.stringify(newCart))
                 setCartList((prevCartList) => (prevCartList ? [...prevCartList, newCart] : [newCart]))
                 console.log(newCart);
             }
@@ -53,6 +54,8 @@ const CartList = ({ setCart }) => {
             })
 
             if (deleteCartById.ok) {
+                setCart(null);
+                localStorage.setItem("cart", null)
                 setCartDeleted(prev => !prev)
                 console.log("Cart Deleted!")
             }
@@ -62,14 +65,14 @@ const CartList = ({ setCart }) => {
             const selectedCart = cartList.find((cart) => String(cart.id) === e.target.dataset.cartId)
             if(selectedCart) {
                 setCart(selectedCart);
-                setCartSelected(true);
+                localStorage.setItem("cart", JSON.stringify(selectedCart))
             }
         }
     }
 
     useEffect(() => {
         fetchUserCarts()
-    }, [cartSelected, cartDeleted]);
+    }, [cartDeleted]);
 
     return (
         <div className={'bg-white rounded-xl ml-[1vw] w-[25vw] max-h-[400px] flex flex-col justify-center'}>

@@ -8,8 +8,7 @@ import { ApplicationContext } from "../Application";
 const Login = () => {
 
     const navigate = useNavigate()
-    const { setUser } = useContext(ApplicationContext)
-    const gateway = process.env.REACT_APP_API_URL;
+    const { gateway, setUser } = useContext(ApplicationContext)
 
     // User Variables
     const [username, setUsername] = useState("");
@@ -28,6 +27,7 @@ const Login = () => {
             if (getUser.ok) {
                 const user = await getUser.json();
                 setUser(user);
+                localStorage.setItem("user", JSON.stringify(user));
             }
         } catch (error) {
             setStatusMsg("Error while fetching user data")
