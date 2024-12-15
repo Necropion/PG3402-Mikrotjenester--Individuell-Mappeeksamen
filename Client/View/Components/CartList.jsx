@@ -22,7 +22,6 @@ const CartList = ({ setCart }) => {
                 console.log("Carts successfully fetched!")
             }
         }
-
     }
 
     const handleClick = async (e) => {
@@ -41,6 +40,7 @@ const CartList = ({ setCart }) => {
             if(createCart.ok) {
                 setCart(newCart);
                 setCartSelected(true);
+                setCartList((prevCartList) => (prevCartList ? [...prevCartList, newCart] : [newCart]))
                 console.log(newCart);
             }
 
@@ -79,9 +79,9 @@ const CartList = ({ setCart }) => {
                     <button id="deleteBtn" data-cart-id={cart.id} onClick={handleClick} className={'w-[20%]'}>Delete</button>
                     <button id="selectBtn" data-cart-id={cart.id} onClick={handleClick} className={'w-[20%]'}>Select</button>
                 </div>
-            )) : <div className={'text-2xl'}>Add an item to the cart to begin.</div>}
+            )) : <div className={'text-2xl pt-[35%]'}>Add an item to the cart to begin.</div>}
             </div>
-            <button id="createBtn" onClick={handleClick} className={'text-2xl'}>New Cart</button>
+            {cartList ? <button id="createBtn" onClick={handleClick} className={'text-2xl'}>New Cart</button> : <div></div>}
         </div>
     )
 }

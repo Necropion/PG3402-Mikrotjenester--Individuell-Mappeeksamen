@@ -8,7 +8,7 @@ import cartSelected from "./Components/CartSelected";
 
 const Home = () => {
 
-    const { gateway, user, cartList, cartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
+    const { gateway, user, cartList, setCartList, cartDeleted, cartSelected, setCartSelected } = useContext(ApplicationContext);
 
     // Car Variables
     const [carList, setCarList] = useState([])
@@ -60,6 +60,7 @@ const Home = () => {
         if(createCart.ok) {
             setCart(newCart);
             setCartSelected(true);
+            setCartList((prevCartList) => (prevCartList ? [...prevCartList, newCart] : [newCart]))
             console.log(newCart);
             return newCart;
         }
@@ -74,7 +75,7 @@ const Home = () => {
         if(e.target.id === "buyBtn") {
             let activeCart = cart
 
-            if(!activeCart){
+            if(!activeCart && !cartList){
                 activeCart = await createCart();
             }
             if(activeCart) {
