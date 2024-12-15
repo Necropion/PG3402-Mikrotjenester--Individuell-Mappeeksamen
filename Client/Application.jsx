@@ -5,6 +5,7 @@ import Register from "./View/Register";
 import About from "./View/About";
 import Home from "./View/Home";
 import { createContext, useState } from "react";
+import ProtectedRoute from "./View/Components/Login/ProtectedRoute";
 
 export const ApplicationContext = createContext();
 
@@ -44,7 +45,7 @@ const Application = () => {
                     <Route path="/" element={<Login />}/>
                     <Route path="/register" element={<Register />}/>
                     <Route path="/about" element={<About />}/>
-                    <Route path="/home" element={<Home />}/>
+                    <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>}/>
                 </Routes>
             </BrowserRouter>
         </ApplicationContext.Provider>
