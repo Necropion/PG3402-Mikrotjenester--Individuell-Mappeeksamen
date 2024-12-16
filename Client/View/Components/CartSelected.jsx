@@ -66,6 +66,7 @@ const CartSelected = ({ itemList, setItemList, itemAdded }) => {
             const addReceiptItem = await fetch(`${gateway}/api/receipt/items`, {
                 method: "POST",
                 body: JSON.stringify({
+                    userId: user.id,
                     receiptId: receiptId,
                     productId: item.id.productId,
                     productName: `${product.color} ${product.make} ${product.model} ${product.carYear}`,

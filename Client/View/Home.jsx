@@ -131,6 +131,7 @@ const Home = () => {
                             <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
                                 <div>{car.make} {car.model} ({car.carYear})</div>
                                 <div>{car.color}</div>
+                                <div>In stock: {car.stock}</div>
                                 {car.stock <= 0 ? <div>Out of Stock</div> :
                                     <button data-product-id={car.productId} id="buyBtn"
                                             className={'bg-amber-950 hover:bg-green-400 w-[10%] ml-[45%] mt-8 rounded-md'}

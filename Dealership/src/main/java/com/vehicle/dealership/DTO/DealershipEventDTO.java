@@ -11,6 +11,8 @@ import lombok.Value;
 @ToString
 public class DealershipEventDTO {
 
+    Long userId;
     Long productId;
     Long quantity;
+    Long receiptId;
 }

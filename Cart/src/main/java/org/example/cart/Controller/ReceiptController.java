@@ -55,7 +55,7 @@ public class ReceiptController {
     public ReceiptItem addReceiptItem(@RequestBody ReceiptItemRequestDTO receiptItemRequestDTO) {
         log.info("Add receipt item: {}", receiptItemRequestDTO);
 
-        DealershipEvent itemStockChange = new DealershipEvent(receiptItemRequestDTO.getProductId(), receiptItemRequestDTO.getQuantity());
+        DealershipEvent itemStockChange = new DealershipEvent(receiptItemRequestDTO.getUserId(), receiptItemRequestDTO.getProductId(), receiptItemRequestDTO.getQuantity(), receiptItemRequestDTO.getReceiptId());
 
         productService.postProductStockChanges(itemStockChange);
 

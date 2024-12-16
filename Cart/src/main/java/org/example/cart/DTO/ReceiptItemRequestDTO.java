@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class ReceiptItemRequestDTO {
 
+    private Long userId;
     private Long receiptId;
     private Long productId;
     private String productName;

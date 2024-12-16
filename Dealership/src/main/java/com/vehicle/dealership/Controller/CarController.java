@@ -5,7 +5,9 @@ import com.vehicle.dealership.Exception.InvalidDataException;
 import com.vehicle.dealership.Exception.ItemProductIDExistsException;
 import com.vehicle.dealership.Exception.ItemNotFoundException;
 import com.vehicle.dealership.Model.Car;
+import com.vehicle.dealership.Model.OwnedCar;
 import com.vehicle.dealership.Repository.CarRepository;
+import com.vehicle.dealership.Repository.OwnedCarRepository;
 import com.vehicle.dealership.Service.CarService;
 import com.vehicle.dealership.Utility.ConsoleColor;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class CarController {
 
     private final CarService carService;
     private final CarRepository carRepository;
+    private final OwnedCarRepository ownedCarRepository;
 
     @GetMapping
     public List<Car> getAllCars() {
@@ -72,5 +75,20 @@ public class CarController {
 
         log.info(ConsoleColor.Green("Car Updated: {}"), dealershipEventDTO);
         return carService.updateCarStock(dealershipEventDTO);
+    }
+
+    // Owned Cars
+    @GetMapping("/owned")
+    private List<OwnedCar> getOwnedCars() {
+        log.info(ConsoleColor.Green("GET Request for a Owned Cars"));
+
+        return ownedCarRepository.findAll();
+    }
+
+    @GetMapping("/owned/{userId}")
+    public List<OwnedCar> getOwnedCarsByUserId(@PathVariable Long userId) {
+        log.info("GET Request for a Owned Cars By User ID: {}", userId);
+
+        return ownedCarRepository.findByUserId(userId);
     }
 }
