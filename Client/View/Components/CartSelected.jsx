@@ -3,12 +3,11 @@ import application, {ApplicationContext} from "../../Application";
 import carImg from "../../Images/car.svg";
 import {useNavigate} from "react-router-dom";
 
-const CartSelected = ({ itemAdded }) => {
+const CartSelected = ({ itemList, setItemList, itemAdded }) => {
 
     const { gateway, user, cartList, cart, setCart, setReceipt } = useContext(ApplicationContext);
     const navigate = useNavigate();
 
-    const [itemList, setItemList] = useState([]);
     const [productList, setProductList] = useState([]);
     const [priceTotal, setPriceTotal] = useState(0)
 

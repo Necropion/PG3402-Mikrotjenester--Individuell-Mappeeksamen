@@ -10,6 +10,9 @@ const Home = () => {
 
     // Car Variables
     const [carList, setCarList] = useState([])
+
+    //Cart Variables
+    const [itemList, setItemList] = useState([]);
     const [itemAdded, setItemAdded] = useState(null)
 
     const fetchCars = async () => {
@@ -23,24 +26,52 @@ const Home = () => {
 
     const addItemToCart = async (e, activeCart) => {
         setItemAdded(null);
-        console.log(e.target.dataset.productId)
-        const postCartItem = await fetch(`${gateway}/api/item`,{
-            method: "POST",
-            body: JSON.stringify({
-                cartId: activeCart.id,
-                productId: e.target.dataset.productId,
-                quantity: 1
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const newCartItem = await postCartItem.json();
+        const productId = Number(e.target.dataset.productId);
+        const existingItem = itemList.find(item => item.id.productId === productId)
+        console.log("Existing item: ", existingItem)
 
-        if(postCartItem.ok) {
-            console.log(newCartItem);
-            setItemAdded(e.target.dataset.productId)
+        if(!existingItem) {
+            const postCartItem = await fetch(`${gateway}/api/item`, {
+                method: "POST",
+                body: JSON.stringify({
+                    cartId: activeCart.id,
+                    productId: e.target.dataset.productId,
+                    quantity: 1
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const newCartItem = await postCartItem.json();
+
+            if (postCartItem.ok) {
+                console.log(newCartItem);
+                setItemAdded(e.target.dataset.productId)
+            }
         }
+
+        if(existingItem) {
+
+
+
+            const updateQuantity = await fetch(`${gateway}/api/item`, {
+                method: "PUT",
+                body: JSON.stringify({
+                    cartId: activeCart.id,
+                    productId: e.target.dataset.productId,
+                    quantity: existingItem.quantity + 1
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+
+            if(updateQuantity.ok) {
+                console.log("Item quantity updated!")
+                setItemAdded(e.target.dataset.productId);
+            }
+        }
+
     };
 
     const createCart = async () => {
@@ -108,7 +139,7 @@ const Home = () => {
                         </div>
                     ))}
                 </div>
-                <Cart itemAdded={itemAdded} setItemAdded={setItemAdded}/>
+                <Cart itemList={itemList} setItemList={setItemList} itemAdded={itemAdded} setItemAdded={setItemAdded}/>
             </main>
         </>
     )

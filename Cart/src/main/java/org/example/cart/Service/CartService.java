@@ -76,4 +76,15 @@ public class CartService {
 
         return cartItem;
     }
+
+    public CartItems updateCartItem(CartItemRequestDTO cartItemRequestDTO) {
+
+        CartItemsId cartitemId = new CartItemsId(cartItemRequestDTO.getCartId(), cartItemRequestDTO.getProductId());
+        CartItems cartItem = cartItemsRepository.findById(cartitemId)
+                .orElseThrow(() -> new RuntimeException("Cart Item not found"));
+
+        cartItem.setQuantity(cartItemRequestDTO.getQuantity());
+
+        return cartItemsRepository.save(cartItem);
+    }
 }

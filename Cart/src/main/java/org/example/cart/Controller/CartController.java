@@ -7,6 +7,7 @@ import org.example.cart.Exception.InvalidDataException;
 import org.example.cart.Exception.Cart.MissingUserIdException;
 import org.example.cart.Model.Cart;
 import org.example.cart.Model.CartItems;
+import org.example.cart.Model.CartItemsId;
 import org.example.cart.Service.CartService;
 import org.example.cart.Utility.ConsoleColor;
 import org.springframework.web.bind.annotation.*;
@@ -82,5 +83,10 @@ public class CartController {
         return cartItem;
     }
 
+    @PutMapping("/item")
+    public CartItems updateItemQuantity(@RequestBody CartItemRequestDTO cartItemRequestDTO) {
+        log.info("Updating Cart Item Quantity {} ", cartItemRequestDTO);
 
+        return cartService.updateCartItem(cartItemRequestDTO);
+    }
 }
