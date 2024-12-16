@@ -75,7 +75,7 @@ const CartList = () => {
     }, [cartDeleted]);
 
     return (
-        <div className={'bg-white rounded-xl ml-[1vw] w-[25vw] max-h-[400px] flex flex-col justify-center'}>
+        <div className={'bg-white rounded-xl max-h-[400px] flex flex-col justify-center'}>
             <div className={'flex-1 h-[80%]'}>{cartList ? cartList.map((cart, index) => (
                 <div key={index} className={'h-[50px] text-xl flex flex-wrap content-center'}>
                     <div className={'pl-5 w-[55%]'}>Cart {index + 1}</div>

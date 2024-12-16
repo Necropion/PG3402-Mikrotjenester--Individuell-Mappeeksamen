@@ -3,17 +3,19 @@ import {useContext, useEffect, useState} from "react";
 import Cart from "./Components/Cart";
 import carImg from "../Images/car.svg"
 import {ApplicationContext} from "../Application";
+import SearchQuery from "./Components/SearchQuery";
 
 const Home = () => {
 
     const { gateway, user, cartList, setCartList, cart, setCart } = useContext(ApplicationContext);
 
     // Car Variables
-    const [carList, setCarList] = useState([])
+    const [carList, setCarList] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     //Cart Variables
     const [itemList, setItemList] = useState([]);
-    const [itemAdded, setItemAdded] = useState(null)
+    const [itemAdded, setItemAdded] = useState(null);
 
     const fetchCars = async () => {
         const getAllCars = await fetch(`${gateway}/api/car`)
@@ -52,8 +54,6 @@ const Home = () => {
 
         if(existingItem) {
 
-
-
             const updateQuantity = await fetch(`${gateway}/api/item`, {
                 method: "PUT",
                 body: JSON.stringify({
@@ -71,7 +71,6 @@ const Home = () => {
                 setItemAdded(e.target.dataset.productId);
             }
         }
-
     };
 
     const createCart = async () => {
@@ -101,6 +100,10 @@ const Home = () => {
         return null;
     };
 
+    const filteredCars = carList.filter((car) =>
+        `${car.make} ${car.model} ${car.carYear} ${car.color}`.toLowerCase().includes(searchQuery)
+    );
+
     const handleClick = async (e) => {
         e.preventDefault();
 
@@ -116,6 +119,8 @@ const Home = () => {
         }
     }
 
+
+
     useEffect(() => {
         fetchCars();
     }, []);
@@ -123,9 +128,9 @@ const Home = () => {
     return(
         <>
             <Header />
-            <main className={'text-center text-8xl mt-[5vh] flex flex-wrap justify-center'}>
-                <div className={'bg-white rounded-xl w-[72vw] h-[83vh] grid grid-cols-1 overflow-scroll'}>
-                    {carList.map((car, index) => (
+            <main className={'text-center text-8xl mt-[5vh] grid grid-cols-[75%_24%] justify-center'}>
+                <div className={'bg-white rounded-xl mr-5 h-[83vh] row-span-2 grid grid-cols-1 overflow-scroll'}>
+                    {filteredCars.map((car, index) => (
                         <div key={index} className={'text-xl bg-cyan-600 text-white ml-2 mt-2 mr-2 h-[150px] border-2 border-black flex flex-wrap'}>
                             <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
                             <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
@@ -144,6 +149,7 @@ const Home = () => {
                     ))}
                 </div>
                 <Cart itemList={itemList} setItemList={setItemList} itemAdded={itemAdded} setItemAdded={setItemAdded}/>
+                <SearchQuery setSearchQuery={setSearchQuery}/>
             </main>
         </>
     )
