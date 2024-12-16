@@ -35,10 +35,61 @@ and a Gateway Service to handle routing and security.
 9. As a user, I want to view my past receipts so that I can track my purchase history, including total amounts, items purchased, and dates.
   
 #### Owned Cars
-10. As a user, I want to see a list of cars I currently own after purchasing them so that I can track my acquisitions.
+10. As a user, I want to see a list of cars and receipts I currently own after purchasing them so that I can track my acquisitions in my profile page.
 11. As a user, I want the dealership to automatically track my owned cars after purchases so that ownership records are accurate and linked to my profile.
   
 ### Running the project locally
+  
+Before running my project make sure to have rabbitmq and consul up and running:  
+  
+In your terminal run rabbitmq:  
+WinOS:  
+rabbitmq-server.bat  
+MacOS:  
+brew services start rabbitmq
+  
+To run consul:  
+consul agent -dev  
+  
+Make sure you are using java version 21, for me my project wouldn't work on java 23, so I based the project around java 21  
+  
+From project root folder Vehicle Store:  
+cd ./Client
+  
+Install necessary frontend packages:  
+npm i  
+  
+Run the frontend:
+npm run dev  
+  
+Back to root:  
+cd ..  
+  
+run Gateway first:  
+cd. ./Gateway  
+mvn spring-boot:run -DskipTests  
+
+Back to root:  
+cd ..  
+  
+run Authentication Service:  
+cd ./Authentication  
+mvn spring-boot:run -DskipTests  
+  
+Back to root:  
+cd ..  
+  
+run Cart Service:  
+cd ./Cart  
+mvn spring-boot:run -DskipTests  
+
+Back to root:  
+cd ..  
+  
+run Dealership Service:  
+cd ./Dealership  
+mvn spring-boot:run -DskipTests  
+
 
 ### Running the project with Docker containers locally
 
@@ -46,26 +97,38 @@ After unzipping this project, you will need to create a docker image for all of 
 
 Here are the commands and locations necessary to build all images:
 
-Service: Client  
-Location: Vehicle Store/Client  
-Command: docker build -t client:1.0 .  
+Build frontend image:  
+cd ./client  
+docker build -t client:1.0 .  
   
-Service: Authentication  
-Location: Vehicle Store/Authentication  
-Command: mvn spring-boot:build-image -DskipTests  
+Back to root:  
+cd ..  
+  
+Build Authentication service image:   
+cd ./Authentication  
+mvn spring-boot:build-image -DskipTests  
 
-Service: Cart
-Location: Vehicle Store/Cart
-Command: mvn spring-boot:build-image -DskipTests  
+Back to root:  
+cd ..  
   
-Service: Dealership  
-Location: Vehicle Store/Dealership  
-Command: mvn spring-boot:build-image -DskipTests  
-  
-Service: Gateway  
-Location: Vehicle Store/Gateway  
-Command: mvn spring-boot:build-image -DskipTests  
-  
+Build Cart service image:   
+cd ./Cart  
+mvn spring-boot:build-image -DskipTests
+
+Back to root:  
+cd ..
+
+Build Dealership service image:   
+cd ./Dealership  
+mvn spring-boot:build-image -DskipTests
+
+Back to root:  
+cd ..
+
+Build Gateway service image:   
+cd ./Gateway  
+mvn spring-boot:build-image -DskipTests
+
 If you do not have consul and rabbitmq images pre-downloaded, run these commands:
 
 Consul:  
@@ -76,6 +139,9 @@ docker pull rabbitmq:3-management
   
 With these images ready, you should be able to run my docker compose file:  
 from project root folder Vehicle Store:  
+  
+Back to root:
+cd ..  
   
 Move to docker folder:  
 cd ./docker  
