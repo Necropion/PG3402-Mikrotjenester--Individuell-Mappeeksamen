@@ -4,6 +4,7 @@ import com.vehicle.authentication.DTO.UserDTO;
 import com.vehicle.authentication.Exception.User.InvalidDataException;
 import com.vehicle.authentication.Exception.User.UserNotFoundException;
 import com.vehicle.authentication.Model.Authentication;
+import com.vehicle.authentication.Model.Availability;
 import com.vehicle.authentication.Model.UserModel;
 import com.vehicle.authentication.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,20 @@ public class UserController {
 
         log.info("Authentication Result: {}", userAuth.isAuthentication());
         return userAuth;
+    }
+
+    @GetMapping("/availability/email")
+    public Availability findUserByEmail(@RequestParam String email) {
+        log.info("Checking Email availability: {}", email);
+
+        return userService.getOneUserByEmail(email);
+    }
+
+    @GetMapping("/availability/username")
+    public Availability findUserByUsername(@RequestParam String username) {
+        log.info("Checking Username availability: {}", username);
+
+        return userService.getOneUserByUsername(username);
     }
 
     @PostMapping()

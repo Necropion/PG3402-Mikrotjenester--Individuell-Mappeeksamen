@@ -19,7 +19,7 @@ spring:
         - id: authentication
           uri: lb://authentication/
           predicates:
-            - Path=/api/user, /api/user/**, /api/user/auth, /api/user/auth/**
+            - Path=/api/user, /api/user/**, /api/user/auth, /api/user/auth/**, /api/user/availability, /api/user/availability/**
         # Dealership service route
         - id: dealership
           uri: lb://dealership/

@@ -16,13 +16,46 @@ const Register = () => {
     // Events
     const [statusMsg, setStatusMsg] = useState("Create an account");
 
+    const emailValidation = async () => {
+
+        const checkEmail = await fetch(`${gateway}/api/user/availability/email?email=${email}`)
+
+        if (checkEmail.ok) {
+            const response = await checkEmail.json();
+
+            return response.availability;
+        }
+    }
+
+    const usernameValidation = async () => {
+
+        const checkUsername = await fetch(`${gateway}/api/user/availability/username?username=${username}`)
+
+        if(checkUsername.ok) {
+            const response = await checkUsername.json();
+
+            return response.availability;
+        }
+    }
+
     const handleClick = async (e) => {
         e.preventDefault();
+
+        const validEmail = await emailValidation()
+        const validUsername = await usernameValidation()
+
+        if (validUsername === false) {
+            setStatusMsg("Username is already in use!")
+        }
+
+        if (validEmail === false) {
+            setStatusMsg("Email is already in use!")
+        }
 
         if(e.target.id === "registerBtn") {
             if (!username || !password || !email) {
                 setStatusMsg("Please fill in all fields!")
-            } else {
+            } else if (validEmail && validUsername){
                 const newUser = await fetch(`${gateway}/api/user`, {
                     method: "POST",
                     body: JSON.stringify({ username, password, email }),

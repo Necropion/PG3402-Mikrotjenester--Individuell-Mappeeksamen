@@ -49,26 +49,31 @@ const Login = () => {
             }
         // Login Auth Fetch
         } else if(e.target.id === "loginBtn") {
-            try {
-                const userAuth = await fetch(`${gateway}/api/user/auth?username=${username}&password=${password}`)
-                console.log(`Fetch made to: /api/user/auth?username=${username}&password=${password}`)
 
-                if (userAuth.ok) {
-                    const userFound = await userAuth.json();
+            if (!username || !password) {
+                setStatusMsg("Please fill in all fields!")
+            } else {
+                try {
+                    const userAuth = await fetch(`${gateway}/api/user/auth?username=${username}&password=${password}`)
 
-                    console.log(userFound)
+                    if (userAuth.ok) {
+                        const userFound = await userAuth.json();
 
-                    if (userFound.authentication === true) {
-                        await fetchUser(userFound.userId);
-                        navigate("home")
+                        console.log(userFound)
+
+                        if (userFound.authentication === true) {
+                            await fetchUser(userFound.userId);
+                            navigate("home")
+                        }
+
+                        setStatusMsg("The username/password was incorrect")
                     }
-
-                    setStatusMsg("The username/password was incorrect")
+                } catch (error) {
+                    setStatusMsg("Network error or server is unavailable.");
+                    console.error("Error authenticating:", error);
                 }
-            } catch (error) {
-                setStatusMsg("Network error or server is unavailable.");
-                console.error("Error authenticating:", error);
             }
+
         } else if(e.target.id === "registerBtn") {
             navigate("/register")
         }
