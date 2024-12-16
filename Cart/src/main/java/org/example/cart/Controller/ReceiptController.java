@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.cart.DTO.ReceiptItemRequestDTO;
+import org.example.cart.EventDriven.DealershipEvent;
 import org.example.cart.Model.Receipt;
 import org.example.cart.Model.ReceiptItem;
+import org.example.cart.Service.CartService;
+import org.example.cart.Service.ProductService;
 import org.example.cart.Service.ReceiptService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,7 @@ import java.util.List;
 public class ReceiptController {
 
     private final ReceiptService receiptService;
+    private final ProductService productService;
 
     // Receipt
     @GetMapping()
@@ -50,6 +54,10 @@ public class ReceiptController {
     @PostMapping("/items")
     public ReceiptItem addReceiptItem(@RequestBody ReceiptItemRequestDTO receiptItemRequestDTO) {
         log.info("Add receipt item: {}", receiptItemRequestDTO);
+
+        DealershipEvent itemStockChange = new DealershipEvent(receiptItemRequestDTO.getProductId(), receiptItemRequestDTO.getQuantity());
+
+        productService.postProductStockChanges(itemStockChange);
 
         return receiptService.addOneReceiptItem(receiptItemRequestDTO);
     }
