@@ -98,7 +98,7 @@ const Home = () => {
                         <div key={index} className={'text-xl bg-cyan-600 text-white ml-2 mt-2 mr-2 h-[150px] border-2 border-black flex flex-wrap'}>
                             <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
                             <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
-                                <div>{car.productId} {car.make} {car.model} ({car.carYear})</div>
+                                <div>{car.make} {car.model} ({car.carYear})</div>
                                 <div>{car.color}</div>
                                 <button data-product-id={car.productId} id="buyBtn" className={'bg-amber-950 hover:bg-green-400 w-[10%] ml-[45%] mt-8 rounded-md'}
                                         onClick={handleClick}

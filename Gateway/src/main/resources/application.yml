@@ -29,7 +29,7 @@ spring:
         - id: cart
           uri: lb://cart/
           predicates:
-            - Path=/api/cart, /api/cart/**, /api/item, /api/item/**, /api/product/car, /api/product/car/**
+            - Path=/api/cart, /api/cart/**, /api/item, /api/item/**, /api/product/car, /api/product/car/**, /api/receipt, /api/receipt/**
       globalcors:
         cors-configurations:
           '[/**]':
