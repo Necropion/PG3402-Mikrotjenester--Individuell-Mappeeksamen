@@ -11,7 +11,9 @@ Authentication Service for user management, a Dealership Service for vehicle lis
 collections of owned vehicles, a Cart Service for managing user selections and purchases 
 and a Gateway Service to handle routing and security.
 
-### Running the project with Docker
+### Running the project locally
+
+### Running the project with Docker containers locally
 
 After unzipping this project, you will need to create a docker image for all of my services
 
@@ -46,6 +48,14 @@ RabbitMQ:
 docker pull rabbitmq:3-management  
   
 With these images ready, you should be able to run my docker compose file:  
-docker compose -f "docker-compose-services-v1.yml" up (This will run logs for all services in your terminal at the same time)  
-docker compose -f "docker-compose-services-v1.yml" up -d (This will not run logs for all the services in your terminal)  
+from project root folder Vehicle Store:
+
+Move to docker folder:
+cd ./docker
+
+This will run logs for all services in your terminal at the same time:
+docker compose -f "docker-compose-services-v1.yml" up
+
+This will not run logs for all the services in your terminal:
+docker compose -f "docker-compose-services-v1.yml" up -d  
 
