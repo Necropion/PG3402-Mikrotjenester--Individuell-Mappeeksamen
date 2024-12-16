@@ -1,34 +1,17 @@
 # PG3402-Mikrotjenester--Individuell-Mappeeksamen
 
-## Vehicle Online Store
+### Overview
 
-# Tech Stack
-- React.js
-- Parcel
-- Local H2 Database
-- Spring Boot Java Backend
+The proposed project is a Vehicle Store Platform, designed to facilitate the buying and
+selling of vehicles through a modern, scalable microservices architecture. The platform
+aims to provide users with a seamless experience for browsing available vehicles,
+managing their shopping carts and completing purchases. Leveraging Spring Boot
+for the backend services and React for the frontend. Key components include an
+Authentication Service for user management, a Dealership Service for vehicle listings and
+collections of owned vehicles, a Cart Service for managing user selections and purchases 
+and a Gateway Service to handle routing and security.
 
-# Dependencies
-- Tailwind CSS
-- Gateway
-- RabbitMQ
--
-
-# Frontend Features
-- Login
-- Cart
-- Vehicle Recommendations
-- Service and Repair
-- Part Shop
-
-# Backend
-- Message Broker
-- Sync/Async communication
-
-
-# Startup Commands
-
-### Running teh project with Docker
+### Running the project with Docker
 
 After unzipping this project, you will need to create a docker image for all of my services
 
