@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class ProductService implements CarInfoRepository {
 
     private final CarClient carClient;
-
     private final DealershipEventPublisher dealershipEventPublisher;
 
     @Override
