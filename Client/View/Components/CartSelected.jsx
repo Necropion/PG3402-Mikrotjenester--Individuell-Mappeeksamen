@@ -88,6 +88,19 @@ const CartSelected = ({ itemAdded }) => {
         }
     }
 
+    const removePurchasedCart = async () => {
+
+        const deletePurchasedCart = await fetch(`${gateway}/api/cart/${cart.id}`, {
+            method: "DELETE"
+        });
+
+        if(deletePurchasedCart.ok) {
+            console.log("Cart deleted", cart)
+            setCart(null)
+            localStorage.setItem("cart", null)
+        }
+    }
+
     const purchaseCart = async () => {
 
         const createReceipt = await fetch(`${gateway}/api/receipt`, {
@@ -104,9 +117,8 @@ const CartSelected = ({ itemAdded }) => {
 
             setReceipt(newReceipt);
             localStorage.setItem("receipt", JSON.stringify(newReceipt))
-            setCart(null)
-            localStorage.setItem("cart", null)
             await populateReceipt(newReceipt.id);
+            await removePurchasedCart();
 
             navigate("/checkout")
         }
