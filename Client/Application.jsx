@@ -6,6 +6,7 @@ import About from "./View/About";
 import Home from "./View/Home";
 import { createContext, useState } from "react";
 import ProtectedRoute from "./View/Components/Login/ProtectedRoute";
+import Checkout from "./View/Checkout";
 
 export const ApplicationContext = createContext();
 
@@ -30,6 +31,11 @@ const Application = () => {
         return storedCart ? JSON.parse(storedCart) : null
     });
 
+    const [receipt, setReceipt] = useState(() => {
+        const storedReceipt = localStorage.getItem("receipt");
+        return storedReceipt ? JSON.parse(storedReceipt) : null
+    });
+
     const [cartDeleted, setCartDeleted] = useState(false);
 
     return(
@@ -38,7 +44,8 @@ const Application = () => {
             user, setUser,
             cartList, setCartList,
             cart, setCart,
-            cartDeleted, setCartDeleted
+            cartDeleted, setCartDeleted,
+            receipt, setReceipt
         } }>
             <BrowserRouter>
                 <Routes>
@@ -46,6 +53,7 @@ const Application = () => {
                     <Route path="/register" element={<Register />}/>
                     <Route path="/about" element={<About />}/>
                     <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>}/>
+                    <Route path="checkout" element={<ProtectedRoute><Checkout/></ProtectedRoute>}/>
                 </Routes>
             </BrowserRouter>
         </ApplicationContext.Provider>

@@ -25,4 +25,5 @@ public class Car {
     private Long carYear;
     private String color;
     private Long stock;
+    private Double price;
 }
