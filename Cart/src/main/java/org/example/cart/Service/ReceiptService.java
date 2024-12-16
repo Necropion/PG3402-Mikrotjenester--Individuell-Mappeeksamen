@@ -25,6 +25,10 @@ public class ReceiptService {
         return receiptRepository.findAll();
     }
 
+    public List<Receipt> getAllReceiptsByUserId(Long userId) {
+        return receiptRepository.findByUserId(userId);
+    }
+
     public Receipt addReceipt(Receipt receipt) {
         return receiptRepository.save(receipt);
     }

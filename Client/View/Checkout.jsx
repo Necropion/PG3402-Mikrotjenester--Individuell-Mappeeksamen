@@ -5,7 +5,7 @@ import carImg from "../Images/car.svg";
 
 const Checkout = () => {
 
-    const { gateway, user, receipt } = useContext(ApplicationContext);
+    const { gateway, receipt } = useContext(ApplicationContext);
 
     const [receiptItemsList, setReceiptItemsList] = useState(null);
 

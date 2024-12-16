@@ -32,6 +32,13 @@ public class ReceiptController {
         return receiptService.addReceipt(receipt);
     }
 
+    @GetMapping("/{userId}")
+    public List<Receipt> getAllUserReceipts(@PathVariable Long userId) {
+        log.info("Get all user receipts: {}", userId);
+
+        return receiptService.getAllReceiptsByUserId(userId);
+    }
+
     // Receipt Items
     @GetMapping("/items/{receiptId}")
     public List<ReceiptItem> getReceiptItems(@PathVariable Long receiptId) {
