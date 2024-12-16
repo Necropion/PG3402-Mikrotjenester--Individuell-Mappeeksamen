@@ -124,7 +124,7 @@ const Home = () => {
         <>
             <Header />
             <main className={'text-center text-8xl mt-[5vh] flex flex-wrap justify-center'}>
-                <div className={'bg-white rounded-xl w-[72vw] grid grid-cols-1'}>
+                <div className={'bg-white rounded-xl w-[72vw] h-[83vh] grid grid-cols-1 overflow-scroll'}>
                     {carList.map((car, index) => (
                         <div key={index} className={'text-xl bg-cyan-600 text-white ml-2 mt-2 mr-2 h-[150px] border-2 border-black flex flex-wrap'}>
                             <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>

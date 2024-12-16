@@ -2,6 +2,7 @@ import Header from "./Components/Header";
 import {useContext, useEffect, useState} from "react";
 import {ApplicationContext} from "../Application";
 import {useNavigate} from "react-router-dom";
+import carImg from "../Images/car.svg";
 
 const Profile = () => {
 
@@ -9,6 +10,7 @@ const Profile = () => {
     const navigate = useNavigate();
 
     const [receiptList, setReceiptList] = useState(null);
+    const [carList, setCarList] = useState(null);
 
     const getUserReceipts = async () => {
 
@@ -18,6 +20,28 @@ const Profile = () => {
             const listReceipts = await userReceiptList.json();
 
             setReceiptList(listReceipts);
+        }
+    }
+
+    const getUserCars = async () => {
+
+        const userCars = await fetch(`${gateway}/api/car/owned/${user.id}`)
+
+        if (userCars.ok) {
+            const listCars = await userCars.json();
+
+            const detailedCars = await Promise.all(
+                listCars.map(async (ownedCar) => {
+                    const carDetails = await fetch(`${gateway}/api/car/${ownedCar.productId}`)
+                    if (carDetails.ok) {
+                        const carData = await  carDetails.json();
+                        return { ...carData, receiptId: ownedCar.receiptId};
+                    }
+                    return null
+                })
+            );
+
+            setCarList(detailedCars.filter((car) => car !== null))
         }
     }
 
@@ -33,6 +57,7 @@ const Profile = () => {
 
     useEffect(() => {
         getUserReceipts();
+        getUserCars();
     }, []);
 
     return(
@@ -60,7 +85,16 @@ const Profile = () => {
                         )}) : <div>Loading</div>}
                     </div>
                     <div className={'w-[50%] h-[69%] grid grid-cols-2 overflow-scroll border-2 border-black'}>
-                        {<div>Loading</div>}
+                        {carList ? carList.map((car, index) => (
+                            <div key={index} className={'text-xl bg-cyan-600 text-white ml-2 mt-2 mr-2 h-[150px] border-2 border-black flex flex-wrap'}>
+                                <img id="carImg" className={'w-[25%] h-[100%] border-r-2 border-black'} src={carImg}></img>
+                                <div className={'w-[75%] h-[100%] flex flex-col justify-center'}>
+                                    <div>{car.make} {car.model} ({car.carYear})</div>
+                                    <div>{car.color}</div>
+                                    <div>Receipt ID: {car.receiptId}</div>
+                                </div>
+                            </div>
+                        )) : <div>Loading</div>}
                     </div>
                 </div>
             </main>
