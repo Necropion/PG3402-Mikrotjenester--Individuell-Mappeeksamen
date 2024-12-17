@@ -40,7 +40,7 @@ and a Gateway Service to handle routing and security.
   
 ### Architecture Diagram
   
-![Screenshot 2024-12-17 at 17.35.39.png](./Screenshot%202024-12-17%20at%2017.35.39.png)
+![Architecture Diagram](./Architecture%20Diagram.png)
 
 ### Running the project locally
   
