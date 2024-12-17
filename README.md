@@ -57,7 +57,7 @@ consul agent -dev
   
 Make sure you are using java version 21, for me my project wouldn't work on java 23, so I based the project around java 21  
   
-From project root folder Vehicle Store:  
+From project root folder:  
 cd ./Client
   
 Install necessary frontend packages:  
@@ -99,7 +99,7 @@ mvn spring-boot:run -DskipTests
 
 After unzipping this project, you will need to create a docker image for all of my services
 
-Here are the commands and locations necessary to build all images:
+Here are the commands and locations necessary to build all images from the project root folder:
 
 Build frontend image:  
 cd ./client  
@@ -136,6 +136,7 @@ mvn spring-boot:build-image -DskipTests
 Back to root:  
 cd ..  
   
+Build an image for the consul config import:  
 cd ./docker/consul  
 docker build -t consul-importer:1.19.2 .  
   
