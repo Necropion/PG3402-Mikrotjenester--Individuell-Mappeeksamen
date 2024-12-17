@@ -38,6 +38,10 @@ and a Gateway Service to handle routing and security.
 10. As a user, I want to see a list of cars and receipts I currently own after purchasing them so that I can track my acquisitions in my profile page.
 11. As a user, I want the dealership to automatically track my owned cars after purchases so that ownership records are accurate and linked to my profile.
   
+### Architecture Diagram
+  
+![Screenshot 2024-12-17 at 17.35.39.png](./Screenshot%202024-12-17%20at%2017.35.39.png)
+
 ### Running the project locally
   
 Before running my project make sure to have rabbitmq and consul up and running:  
