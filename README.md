@@ -127,8 +127,17 @@ cd ..
 
 Build Gateway service image:   
 cd ./Gateway  
-mvn spring-boot:build-image -DskipTests
+mvn spring-boot:build-image -DskipTests  
 
+Back to root:  
+cd ..  
+  
+cd ./docker/consul  
+docker build -t consul-importer:1.19.2 .  
+  
+Back to root:  
+cd ../..  
+  
 If you do not have consul and rabbitmq images pre-downloaded, run these commands:
 
 Consul:  
@@ -138,10 +147,7 @@ RabbitMQ:
 docker pull rabbitmq:3-management  
   
 With these images ready, you should be able to run my docker compose file:  
-from project root folder Vehicle Store:  
-  
-Back to root:
-cd ..  
+from project root folder Vehicle Store:
   
 Move to docker folder:  
 cd ./docker  
